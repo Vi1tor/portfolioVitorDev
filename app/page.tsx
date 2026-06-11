@@ -7,24 +7,28 @@ const pages = [
   {
     index: '01',
     title: 'Sobre',
+    heading: 'Sobre mim',
     description: 'Quem sou, trajetória e o que valorizo em cada produto.',
     href: '/sobre',
   },
   {
     index: '02',
     title: 'Projetos',
+    heading: 'Projetos',
     description: 'Trabalho publicado em produção, com problema e contexto reais.',
     href: '/projetos',
   },
   {
     index: '03',
     title: 'Stack',
+    heading: 'Stack tecnológica',
     description: 'Ferramentas que uso com domínio real — sem acúmulo de rótulos.',
     href: '/stack',
   },
   {
     index: '04',
     title: 'Contato',
+    heading: 'Entre em contato',
     description: 'Para projetos com intenção clara e briefing bem resolvido.',
     href: '/contato',
   },
@@ -53,12 +57,13 @@ export default function Home() {
                   {page.index}
                 </span>
 
-                <span
+                <h2
                   className="font-display font-semibold tracking-[-0.04em] text-white/80 group-hover:text-white transition-colors duration-300 flex-1"
                   style={{ fontSize: 'clamp(1.6rem, 4vw, 3rem)' }}
                 >
-                  {page.title}
-                </span>
+                  <span className="sr-only">{page.heading}</span>
+                  <span aria-hidden="true">{page.title}</span>
+                </h2>
 
                 <span className="hidden max-w-xs text-sm leading-7 text-white/30 group-hover:text-white/50 transition-colors duration-300 lg:block">
                   {page.description}

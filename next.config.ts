@@ -7,6 +7,16 @@ const nextConfig: NextConfig = {
       { protocol: 'https', hostname: 'avatars.githubusercontent.com' },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'vitorprogramador.com.br' }],
+        destination: 'https://www.vitorprogramador.com.br/:path*',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig

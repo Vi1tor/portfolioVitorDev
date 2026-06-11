@@ -3,22 +3,53 @@ import PageHero from '@/components/PageHero'
 import About from '@/components/About'
 import Experience from '@/components/Experience'
 import Footer from '@/components/Footer'
+import JsonLd from '@/components/JsonLd'
+
+const URL = 'https://www.vitorprogramador.com.br/sobre'
 
 export const metadata: Metadata = {
-  title: 'Sobre',
+  title: { absolute: 'Sobre Vitor Oliveira | Desenvolvedor Full Stack Freelance' },
   description:
     'Conheça Vitor Oliveira — desenvolvedor full stack freelance no Brasil. Trajetória, valores e o que prioriza em cada produto digital.',
-  alternates: { canonical: 'https://www.vitorprogramador.com.br/sobre' },
+  alternates: { canonical: URL },
   openGraph: {
-    title: 'Sobre | Vitor Oliveira',
+    title: 'Sobre Vitor Oliveira | Desenvolvedor Full Stack Freelance',
     description: 'Desenvolvedor full stack freelance. Trajetória, valores e o que prioriza em cada produto digital.',
-    url: 'https://www.vitorprogramador.com.br/sobre',
+    url: URL,
+    type: 'profile',
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Sobre Vitor Oliveira | Desenvolvedor Full Stack Freelance',
+    description: 'Desenvolvedor full stack freelance. Trajetória, valores e o que prioriza em cada produto digital.',
+  },
+  robots: { index: true, follow: true },
+}
+
+const aboutPageJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: 'Sobre Vitor Oliveira',
+  url: URL,
+  description:
+    'Conheça Vitor Oliveira — desenvolvedor full stack freelance no Brasil. Trajetória, valores e o que prioriza em cada produto digital.',
+  about: { '@type': 'Person', name: 'Vitor Oliveira' },
+}
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.vitorprogramador.com.br' },
+    { '@type': 'ListItem', position: 2, name: 'Sobre', item: URL },
+  ],
 }
 
 export default function SobrePage() {
   return (
     <>
+      <JsonLd data={aboutPageJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <PageHero
         index="01"
         kicker="01 — Sobre"

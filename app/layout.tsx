@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: '%s | Vitor Oliveira',
   },
   description:
-    'Portfólio de Vitor Oliveira, desenvolvedor full stack freelance no Brasil. Especialista em React, TypeScript, Node.js e Java. Produtos digitais claros, estáveis e bem resolvidos.',
+    'Portfólio de Vitor Oliveira, dev full stack freelance no Brasil. Especialista em React, TypeScript, Node.js e Java. Produtos digitais bem resolvidos.',
   keywords: [
     'Vitor Oliveira',
     'Vitor Oliveira desenvolvedor',
@@ -76,6 +76,14 @@ export const metadata: Metadata = {
   },
 }
 
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Vitor Oliveira — Desenvolvedor Full Stack',
+  url: BASE_URL,
+  inLanguage: 'pt-BR',
+}
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -100,6 +108,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           id="json-ld-person"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <Script
+          id="json-ld-website"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
       <body className={`${inter.variable} ${syne.variable} ${jetbrainsMono.variable} antialiased`}>
