@@ -4,8 +4,15 @@ import Projects from '@/components/Projects'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Projetos — Vitor Oliveira',
-  description: 'Trabalho publicado em produção com problema definido e entrega real.',
+  title: 'Projetos',
+  description:
+    'Projetos reais de Vitor Oliveira em produção — guias digitais para hotelaria, sistemas de auditoria, sites institucionais e ferramentas sob medida.',
+  alternates: { canonical: 'https://www.vitorprogramador.com.br/projetos' },
+  openGraph: {
+    title: 'Projetos | Vitor Oliveira',
+    description: 'Projetos em produção: guias digitais, auditoria, sites institucionais e ferramentas sob medida.',
+    url: 'https://www.vitorprogramador.com.br/projetos',
+  },
 }
 
 export default function ProjetosPage() {

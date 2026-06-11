@@ -5,8 +5,15 @@ import Experience from '@/components/Experience'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Sobre — Vitor Oliveira',
-  description: 'Desenvolvedor Full Stack focado em produtos digitais claros e bem resolvidos.',
+  title: 'Sobre',
+  description:
+    'Conheça Vitor Oliveira — desenvolvedor full stack freelance no Brasil. Trajetória, valores e o que prioriza em cada produto digital.',
+  alternates: { canonical: 'https://www.vitorprogramador.com.br/sobre' },
+  openGraph: {
+    title: 'Sobre | Vitor Oliveira',
+    description: 'Desenvolvedor full stack freelance. Trajetória, valores e o que prioriza em cada produto digital.',
+    url: 'https://www.vitorprogramador.com.br/sobre',
+  },
 }
 
 export default function SobrePage() {

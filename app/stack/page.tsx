@@ -5,8 +5,15 @@ import Terminal from '@/components/Terminal'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Stack — Vitor Oliveira',
-  description: 'Ferramentas com domínio real. Menos rótulos, mais profundidade.',
+  title: 'Stack',
+  description:
+    'Stack técnica de Vitor Oliveira: React, TypeScript, Next.js, Node.js, Java, PostgreSQL e mais. Ferramentas usadas com domínio real em projetos de produção.',
+  alternates: { canonical: 'https://www.vitorprogramador.com.br/stack' },
+  openGraph: {
+    title: 'Stack | Vitor Oliveira',
+    description: 'React, TypeScript, Next.js, Node.js, Java, PostgreSQL — ferramentas com domínio real.',
+    url: 'https://www.vitorprogramador.com.br/stack',
+  },
 }
 
 export default function StackPage() {

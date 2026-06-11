@@ -4,8 +4,15 @@ import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
-  title: 'Contato — Vitor Oliveira',
-  description: 'Para projetos com intenção clara. Resposta em até 24h.',
+  title: 'Contato',
+  description:
+    'Entre em contato com Vitor Oliveira para projetos freelance. Desenvolvedor full stack disponível para trabalho remoto. Resposta em até 24h.',
+  alternates: { canonical: 'https://www.vitorprogramador.com.br/contato' },
+  openGraph: {
+    title: 'Contato | Vitor Oliveira',
+    description: 'Desenvolvedor full stack freelance disponível para projetos remotos. Resposta em até 24h.',
+    url: 'https://www.vitorprogramador.com.br/contato',
+  },
 }
 
 export default function ContatoPage() {
