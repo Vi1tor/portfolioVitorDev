@@ -10,7 +10,7 @@ export default function Image() {
     (
       <div
         style={{
-          background: 'linear-gradient(135deg, #0C0B09 0%, #1a1814 100%)',
+          background: 'linear-gradient(135deg, #05060b 0%, #12101f 55%, #0a1620 100%)',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -24,7 +24,7 @@ export default function Image() {
       >
         <p
           style={{
-            color: '#C8920A',
+            color: '#22D3EE',
             fontSize: '14px',
             letterSpacing: '0.3em',
             textTransform: 'uppercase',
@@ -36,7 +36,7 @@ export default function Image() {
 
         <p
           style={{
-            color: '#F4EFE6',
+            color: '#F2F4F9',
             fontSize: '80px',
             fontWeight: 700,
             margin: '0 0 12px',
@@ -48,7 +48,7 @@ export default function Image() {
 
         <p
           style={{
-            color: '#C8920A',
+            color: '#22D3EE',
             fontSize: '34px',
             fontWeight: 400,
             margin: '0 0 52px',
@@ -59,7 +59,7 @@ export default function Image() {
 
         <p
           style={{
-            color: '#F4EFE6',
+            color: '#F2F4F9',
             fontSize: '17px',
             opacity: 0.4,
             margin: 0,
@@ -74,7 +74,7 @@ export default function Image() {
             position: 'absolute',
             bottom: '48px',
             right: '80px',
-            color: '#C8920A',
+            color: '#22D3EE',
             fontSize: '13px',
             opacity: 0.5,
             letterSpacing: '0.18em',

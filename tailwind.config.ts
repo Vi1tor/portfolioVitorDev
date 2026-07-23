@@ -10,12 +10,12 @@ const config: Config = {
     extend: {
       colors: {
         space: {
-          950: '#f8f3ea',
-          900: '#f4ecdf',
-          800: '#ede2cf',
-          700: '#e4d4bb',
-          600: '#d9c5a4',
-          500: '#cfae87',
+          950: '#03040a',
+          900: '#05060b',
+          800: '#0a0c16',
+          700: '#12141f',
+          600: '#1a1d2b',
+          500: '#252838',
         },
         cyan: {
           DEFAULT: '#22D3EE',
@@ -41,6 +41,8 @@ const config: Config = {
         'scroll-line':  'scrollLine 2s ease-in-out infinite',
         'gradient-x':   'gradientX 4s ease infinite',
         'float':        'float 6s ease-in-out infinite',
+        'aurora':       'aurora 18s ease-in-out infinite',
+        'aurora-slow':  'aurora 26s ease-in-out infinite reverse',
       },
       keyframes: {
         pulseDot: {
@@ -60,14 +62,19 @@ const config: Config = {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%':      { transform: 'translateY(-8px)' },
         },
+        aurora: {
+          '0%, 100%': { transform: 'translate(0%, 0%) scale(1)' },
+          '33%':      { transform: 'translate(4%, 6%) scale(1.08)' },
+          '66%':      { transform: 'translate(-4%, -3%) scale(0.96)' },
+        },
       },
       backgroundSize: { '300%': '300%' },
       boxShadow: {
-        'glow-sm':  '0 0 20px rgba(183,119,62,0.12)',
-        'glow':     '0 0 40px rgba(183,119,62,0.16)',
-        'glow-lg':  '0 0 80px rgba(183,119,62,0.2)',
-        'card':     '0 4px 24px rgba(118,92,65,0.1)',
-        'card-hover': '0 12px 40px rgba(118,92,65,0.14), 0 0 40px rgba(183,119,62,0.08)',
+        'glow-sm':  '0 0 20px rgba(124,108,246,0.22)',
+        'glow':     '0 0 50px rgba(124,108,246,0.28)',
+        'glow-lg':  '0 0 90px rgba(34,211,238,0.22)',
+        'card':     '0 4px 24px rgba(0,0,0,0.35)',
+        'card-hover': '0 16px 50px rgba(0,0,0,0.45), 0 0 40px rgba(124,108,246,0.16)',
       },
     },
   },

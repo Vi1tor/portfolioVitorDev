@@ -56,11 +56,17 @@ export default function Terminal() {
   const [input, setInput] = useState('')
   const [history, setHistory] = useState<string[]>([])
   const [historyIdx, setHistoryIdx] = useState(-1)
-  const bottomRef = useRef<HTMLDivElement>(null)
+  const outputRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const isFirstRender = useRef(true)
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
+    const el = outputRef.current
+    if (el) el.scrollTop = el.scrollHeight
   }, [lines])
 
   const run = (cmd: string) => {
@@ -108,7 +114,7 @@ export default function Terminal() {
   }
 
   return (
-    <section id="terminal" className="relative py-28">
+    <section id="terminal" className="relative py-20">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 32 }}
@@ -118,13 +124,13 @@ export default function Terminal() {
         >
           <div className="mb-10">
             <span className="kicker mb-4 block">Interativo</span>
-            <h2 className="font-display text-4xl font-semibold tracking-[-0.04em] text-stone-900 lg:text-5xl">
-              Terminal <span className="text-stone-400">direto</span>
+            <h2 className="font-display text-4xl font-semibold tracking-[-0.04em] text-white lg:text-5xl">
+              Terminal <span className="text-white/40">direto</span>
             </h2>
           </div>
 
           <div
-            className="overflow-hidden rounded-[1.75rem] border border-stone-900/12 bg-[#111110] shadow-[0_32px_80px_rgba(0,0,0,0.22)]"
+            className="overflow-hidden rounded-[1.75rem] border border-white/12 bg-[#0a0b10] shadow-[0_32px_80px_rgba(0,0,0,0.5)]"
             onClick={() => inputRef.current?.focus()}
           >
             {/* Window bar */}
@@ -138,7 +144,7 @@ export default function Terminal() {
             </div>
 
             {/* Output */}
-            <div className="h-80 overflow-y-auto px-6 pt-5 pb-3 font-mono text-sm leading-7">
+            <div ref={outputRef} className="h-80 overflow-y-auto px-6 pt-5 pb-3 font-mono text-sm leading-7">
               <AnimatePresence initial={false}>
                 {lines.map((line, i) => (
                   <motion.div
@@ -148,7 +154,7 @@ export default function Terminal() {
                     transition={{ duration: 0.15 }}
                     className={
                       line.type === 'input'
-                        ? 'text-[#b7773e]'
+                        ? 'text-cyan-300'
                         : line.type === 'error'
                         ? 'text-red-400/80'
                         : 'text-white/60'
@@ -158,7 +164,6 @@ export default function Terminal() {
                   </motion.div>
                 ))}
               </AnimatePresence>
-              <div ref={bottomRef} />
             </div>
 
             {/* Input */}
