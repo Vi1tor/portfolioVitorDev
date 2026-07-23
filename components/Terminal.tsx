@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Window from '@/components/Window'
 
 const PROMPT = 'vitor@portfolio:~$'
 
@@ -114,73 +115,55 @@ export default function Terminal() {
   }
 
   return (
-    <section id="terminal" className="relative py-20">
+    <section id="terminal" className="relative pb-24">
       <div className="section-container">
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
-          <div className="mb-10">
-            <span className="kicker mb-4 block">Interativo</span>
-            <h2 className="font-display text-4xl font-semibold tracking-[-0.04em] text-white lg:text-5xl">
-              Terminal <span className="text-white/40">direto</span>
-            </h2>
-          </div>
+          <span className="kicker mb-5 block">interativo — não é só decoração</span>
 
-          <div
-            className="overflow-hidden rounded-[1.75rem] border border-white/12 bg-[#0a0b10] shadow-[0_32px_80px_rgba(0,0,0,0.5)]"
-            onClick={() => inputRef.current?.focus()}
-          >
-            {/* Window bar */}
-            <div className="flex items-center gap-2 border-b border-white/8 px-5 py-4">
-              <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-              <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
-              <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-              <span className="ml-3 font-mono text-[11px] tracking-wider text-white/30">
-                vitor@portfolio — terminal
-              </span>
-            </div>
+          <Window path="terminal" meta="tente 'help'">
+            <div onClick={() => inputRef.current?.focus()}>
+              <div ref={outputRef} className="h-72 overflow-y-auto px-5 pt-4 pb-2 font-mono text-[13px] leading-6 lg:px-6">
+                <AnimatePresence initial={false}>
+                  {lines.map((line, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -4 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.15 }}
+                      className={
+                        line.type === 'input'
+                          ? 'text-[color:var(--accent)]'
+                          : line.type === 'error'
+                          ? 'text-red-400/80'
+                          : 'text-white/60'
+                      }
+                    >
+                      {line.text || ' '}
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
 
-            {/* Output */}
-            <div ref={outputRef} className="h-80 overflow-y-auto px-6 pt-5 pb-3 font-mono text-sm leading-7">
-              <AnimatePresence initial={false}>
-                {lines.map((line, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, x: -4 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.15 }}
-                    className={
-                      line.type === 'input'
-                        ? 'text-cyan-300'
-                        : line.type === 'error'
-                        ? 'text-red-400/80'
-                        : 'text-white/60'
-                    }
-                  >
-                    {line.text || ' '}
-                  </motion.div>
-                ))}
-              </AnimatePresence>
+              <div className="flex items-center gap-3 border-t border-white/8 px-5 py-3.5 lg:px-6">
+                <span className="font-mono text-sm text-[color:var(--accent)]">{PROMPT}</span>
+                <input
+                  ref={inputRef}
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  onKeyDown={onKey}
+                  className="flex-1 bg-transparent font-mono text-sm text-white/80 outline-none placeholder:text-white/20"
+                  placeholder="digite um comando..."
+                  autoComplete="off"
+                  spellCheck={false}
+                />
+              </div>
             </div>
-
-            {/* Input */}
-            <div className="flex items-center gap-3 border-t border-white/8 px-6 py-4">
-              <span className="font-mono text-sm text-[#b7773e]">{PROMPT}</span>
-              <input
-                ref={inputRef}
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                onKeyDown={onKey}
-                className="flex-1 bg-transparent font-mono text-sm text-white/80 outline-none placeholder:text-white/20"
-                placeholder="digite um comando..."
-                autoComplete="off"
-                spellCheck={false}
-              />
-            </div>
-          </div>
+          </Window>
         </motion.div>
       </div>
     </section>

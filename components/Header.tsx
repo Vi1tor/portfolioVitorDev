@@ -3,19 +3,24 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Command } from 'lucide-react'
 
 const links = [
-  { label: 'Sobre',    href: '#sobre' },
-  { label: 'Projetos', href: '#projetos' },
-  { label: 'Stack',    href: '#stack' },
-  { label: 'Contato',  href: '#contato' },
+  { label: 'sobre.md',    href: '#sobre' },
+  { label: 'projetos/',   href: '#projetos' },
+  { label: 'stack.json',  href: '#stack' },
+  { label: 'contato.sh',  href: '#contato' },
 ]
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [active, setActive] = useState('#home')
+  const [isMac, setIsMac] = useState(true)
+
+  useEffect(() => {
+    setIsMac(/Mac|iPhone|iPad/.test(navigator.platform ?? navigator.userAgent))
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -48,58 +53,61 @@ export default function Header() {
   return (
     <>
       <motion.header
-        initial={{ y: -80, opacity: 0 }}
+        initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 md:px-6"
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-300 ${
+          scrolled ? 'border-white/10 bg-[var(--bg)]/95' : 'border-white/[0.06] bg-[var(--bg)]/70'
+        }`}
+        style={{ backdropFilter: 'none' }}
       >
-        <div className="mx-auto max-w-6xl">
-          <div className={`flex h-14 items-center justify-between rounded-2xl border px-5 transition-all duration-400 md:px-6 ${
-            scrolled
-              ? 'border-white/10 bg-[#05060b]/80 shadow-[0_8px_32px_rgba(0,0,0,0.4)] backdrop-blur-xl'
-              : 'border-white/8 bg-white/[0.03] backdrop-blur-md'
-          }`}>
-
+        <div className="mx-auto max-w-6xl px-4 md:px-6">
+          <div className="flex h-14 items-center justify-between gap-4">
             {/* Logo */}
-            <Link href="#home" className="flex items-center gap-2.5">
-              <span className="font-display text-[1.05rem] font-semibold tracking-tight text-white">
-                Vitor Oliveira
-              </span>
-              <span className="hidden text-[9px] uppercase tracking-[0.3em] text-white/40 md:block">
-                · Dev Full Stack
-              </span>
+            <Link href="#home" className="flex items-center gap-2 font-mono text-sm">
+              <span className="text-[color:var(--accent)]">~/</span>
+              <span className="font-semibold text-white">vitor-oliveira</span>
             </Link>
 
-            {/* Desktop nav */}
-            <nav className="hidden items-center gap-0.5 md:flex">
+            {/* Desktop nav — styled as open editor tabs */}
+            <nav className="hidden items-stretch md:flex">
               {links.map(l => (
                 <a
                   key={l.href}
                   href={l.href}
-                  className={`relative px-4 py-2 text-[13px] font-medium rounded-xl transition-colors duration-200 ${
-                    isActive(l.href) ? 'text-white' : 'text-white/55 hover:text-white'
+                  className={`relative flex items-center gap-2 border-x border-transparent px-4 py-2 font-mono text-[12.5px] transition-colors duration-150 ${
+                    isActive(l.href)
+                      ? 'border-white/10 bg-white/[0.04] text-white'
+                      : 'text-white/45 hover:text-white/80'
                   }`}
                 >
                   {isActive(l.href) && (
-                    <motion.span
-                      layoutId="nav-active"
-                      className="absolute inset-0 rounded-xl bg-white/10"
-                      transition={{ type: 'spring', stiffness: 360, damping: 32 }}
-                    />
+                    <motion.span layoutId="nav-active" className="absolute inset-x-0 -top-px h-px bg-[var(--accent)]" />
                   )}
-                  <span className="relative z-10">{l.label}</span>
+                  {l.label}
                 </a>
               ))}
             </nav>
 
-            {/* Mobile toggle */}
-            <button
-              onClick={() => setMenuOpen(o => !o)}
-              className="rounded-xl p-2 text-white/80 transition-colors hover:bg-white/10 md:hidden"
-              aria-label="Menu"
-            >
-              {menuOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => window.dispatchEvent(new Event('open-command-palette'))}
+                className="hidden items-center gap-2 rounded-md border border-white/10 px-2.5 py-1.5 font-mono text-[11px] text-white/45 transition-colors hover:border-white/20 hover:text-white/80 sm:flex"
+                aria-label="Abrir busca rápida"
+              >
+                {isMac ? <Command size={12} /> : <span>Ctrl</span>}
+                <span>K</span>
+              </button>
+
+              {/* Mobile toggle */}
+              <button
+                onClick={() => setMenuOpen(o => !o)}
+                className="rounded-md p-2 text-white/70 transition-colors hover:bg-white/10 md:hidden"
+                aria-label="Menu"
+              >
+                {menuOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            </div>
           </div>
         </div>
       </motion.header>
@@ -108,28 +116,26 @@ export default function Header() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: -8 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: -8 }}
-            transition={{ duration: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-[4.5rem] left-4 right-4 z-40 md:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.15 }}
+            className="fixed top-14 left-0 right-0 z-40 border-b border-white/10 bg-[var(--bg)] md:hidden"
           >
-            <div className="glass-strong mx-auto max-w-6xl overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.5)]">
-              <div className="flex flex-col p-2">
-                {links.map(l => (
-                  <a
-                    key={l.href}
-                    href={l.href}
-                    onClick={() => setMenuOpen(false)}
-                    className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-sm font-medium transition-colors ${
-                      isActive(l.href) ? 'bg-white/10 text-white' : 'text-white/70 hover:bg-white/5'
-                    }`}
-                  >
-                    <span>{l.label}</span>
-                    {isActive(l.href) && <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-2)]" />}
-                  </a>
-                ))}
-              </div>
+            <div className="flex flex-col p-2">
+              {links.map(l => (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMenuOpen(false)}
+                  className={`flex items-center justify-between rounded-md px-4 py-3 font-mono text-sm transition-colors ${
+                    isActive(l.href) ? 'bg-white/[0.06] text-white' : 'text-white/60 hover:bg-white/[0.03]'
+                  }`}
+                >
+                  <span>{l.label}</span>
+                  {isActive(l.href) && <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />}
+                </a>
+              ))}
             </div>
           </motion.div>
         )}

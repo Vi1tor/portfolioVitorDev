@@ -4,18 +4,19 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Github, Globe, Send, ArrowRight } from 'lucide-react'
 import { personal } from '@/lib/data'
+import Window from '@/components/Window'
 
 const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 16 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-40px' },
-  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay },
+  transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1], delay },
 })
 
 const channels = [
-  { icon: Mail,   label: 'Email',   val: personal.email,   href: `mailto:${personal.email}` },
-  { icon: Github, label: 'GitHub',  val: 'github.com/Vi1tor', href: personal.github },
-  { icon: Globe,  label: 'Website', val: 'vitorprogramador.com.br', href: personal.website },
+  { icon: Mail,   label: '--email',  val: personal.email,   href: `mailto:${personal.email}` },
+  { icon: Github, label: '--github', val: 'github.com/Vi1tor', href: personal.github },
+  { icon: Globe,  label: '--site',   val: 'vitorprogramador.com.br', href: personal.website },
 ]
 
 export default function Contact() {
@@ -35,86 +36,77 @@ export default function Contact() {
   }
 
   return (
-    <section id="contato" className="relative overflow-hidden py-28 scroll-mt-24">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute top-1/3 left-1/2 h-[28rem] w-[28rem] -translate-x-1/2 rounded-full bg-violet-500/10 blur-[130px]" />
-      </div>
+    <section id="contato" className="relative py-24 scroll-mt-20">
+      <div className="section-container">
+        <motion.span {...reveal(0)} className="kicker mb-5 block">contato</motion.span>
 
-      <div className="section-container relative z-10">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.74fr)_minmax(0,1.26fr)] lg:items-start">
-          <div className="max-w-xl">
-            <motion.span {...reveal(0)} className="kicker mb-4 block">Contato</motion.span>
-            <motion.h2 {...reveal(0.06)} className="font-display text-4xl font-semibold tracking-[-0.04em] text-white lg:text-5xl">
-              Vamos construir algo <span className="text-white/40">com intenção.</span>
-            </motion.h2>
-            <motion.p {...reveal(0.12)} className="mt-6 leading-8 text-white/70">
-              Se houver um problema real para resolver, eu prefiro começar pela clareza do briefing e pela forma como o produto vai ser lido.
-            </motion.p>
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-start">
+          <motion.div {...reveal(0.06)}>
+            <Window path="contato.sh">
+              <div className="p-6 lg:p-7">
+                <h2 className="font-display text-3xl font-semibold leading-[1.1] tracking-[-0.02em] text-white lg:text-4xl">
+                  Vamos construir<br /><span className="text-white/40">algo com intenção.</span>
+                </h2>
+                <p className="mt-5 font-mono text-[13px] leading-6 text-white/50">
+                  Se houver um problema real pra resolver, eu prefiro começar pela clareza do briefing.
+                </p>
 
-            <motion.div {...reveal(0.18)} className="mt-10 space-y-3">
-              {channels.map((c, i) => {
-                const Icon = c.icon
-                return (
-                  <a
-                    key={i}
-                    href={c.href}
-                    target={c.href.startsWith('http') ? '_blank' : undefined}
-                    rel="noopener noreferrer"
-                    className="group flex items-center gap-4 rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4 transition-colors hover:bg-white/[0.06]"
-                  >
-                    <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-white/70">
-                      <Icon size={16} />
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="text-[10px] uppercase tracking-[0.28em] text-white/45">{c.label}</p>
-                      <p className="mt-1 truncate text-sm text-white/70 transition-colors group-hover:text-white">{c.val}</p>
-                    </div>
-                    <ArrowRight size={14} className="text-white/40 transition-transform group-hover:translate-x-0.5 group-hover:text-white/70" />
-                  </a>
-                )
-              })}
-            </motion.div>
-
-            <motion.div {...reveal(0.24)} className="mt-6 rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-5">
-              <p className="text-[11px] uppercase tracking-[0.28em] text-white/45">Status</p>
-              <div className="mt-3 flex items-center gap-2.5">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-pulse-dot rounded-full bg-emerald-400" />
-                </span>
-                <span className="text-sm text-white/75">Disponível para projetos e parcerias remotas</span>
-              </div>
-              <p className="mt-3 text-sm leading-7 text-white/45">Resposta típica em até 24h.</p>
-            </motion.div>
-          </div>
-
-          <motion.div {...reveal(0.12)} className="rounded-[2rem] border border-white/10 bg-white/[0.035] p-6 lg:p-8">
-            <h3 className="font-display text-2xl font-semibold tracking-[-0.03em] text-white">Enviar mensagem</h3>
-            <p className="mt-3 max-w-2xl text-sm leading-7 text-white/50">
-              Conte o que precisa acontecer e o que já existe. Quanto mais contexto, mais claro fica o próximo passo.
-            </p>
-            <form onSubmit={handleSubmit} className="mt-8 flex flex-col gap-4">
-              <div className="grid gap-4 md:grid-cols-2">
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] uppercase tracking-[0.28em] text-white/45">Nome</label>
-                  <input name="name" className="form-input" placeholder="Seu nome" required />
+                <div className="mt-7 space-y-2">
+                  {channels.map((c, i) => {
+                    const Icon = c.icon
+                    return (
+                      <a
+                        key={i}
+                        href={c.href}
+                        target={c.href.startsWith('http') ? '_blank' : undefined}
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-3 rounded-md border border-white/10 px-3.5 py-2.5 font-mono text-[13px] transition-colors hover:border-white/20 hover:bg-white/[0.02]"
+                      >
+                        <Icon size={14} className="text-white/40" />
+                        <span className="text-[color:var(--accent)]">{c.label}</span>
+                        <span className="ml-auto truncate text-white/55 group-hover:text-white/85">{c.val}</span>
+                        <ArrowRight size={13} className="text-white/25 transition-transform group-hover:translate-x-0.5 group-hover:text-white/60" />
+                      </a>
+                    )
+                  })}
                 </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="text-[10px] uppercase tracking-[0.28em] text-white/45">Email</label>
-                  <input name="email" type="email" className="form-input" placeholder="seu@email.com" required />
+
+                <div className="mt-6 flex items-center gap-2.5 border-t border-white/10 pt-5 font-mono text-[13px] text-white/55">
+                  <span className="relative flex h-2 w-2">
+                    <span className="absolute inline-flex h-full w-full animate-pulse-dot rounded-full bg-[var(--accent)]" />
+                  </span>
+                  status: disponível para projetos remotos
                 </div>
               </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase tracking-[0.28em] text-white/45">Assunto</label>
-                <input name="subject" className="form-input" placeholder="Sobre o projeto..." />
-              </div>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-[10px] uppercase tracking-[0.28em] text-white/45">Mensagem</label>
-                <textarea name="message" className="form-input resize-none" rows={5} placeholder="Descreva seu projeto..." required />
-              </div>
-              <button type="submit" className="btn-primary mt-2 justify-center w-full">
-                {sent ? 'Abrindo email...' : (<><Send size={14} /> Enviar mensagem</>)}
-              </button>
-            </form>
+            </Window>
+          </motion.div>
+
+          <motion.div {...reveal(0.12)}>
+            <Window path="mensagem.json">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-6 lg:p-7">
+                <div className="grid gap-4 md:grid-cols-2">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="font-mono text-[11px] text-white/40">--nome</label>
+                    <input name="name" className="form-input" placeholder="seu nome" required />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="font-mono text-[11px] text-white/40">--email</label>
+                    <input name="email" type="email" className="form-input" placeholder="seu@email.com" required />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label className="font-mono text-[11px] text-white/40">--assunto</label>
+                  <input name="subject" className="form-input" placeholder="sobre o projeto..." />
+                </div>
+                <div className="flex flex-col gap-1.5">
+                  <label className="font-mono text-[11px] text-white/40">--mensagem</label>
+                  <textarea name="message" className="form-input resize-none" rows={5} placeholder="descreva seu projeto..." required />
+                </div>
+                <button type="submit" className="btn-primary mt-2 w-full justify-center">
+                  {sent ? '$ enviando...' : (<><Send size={14} /> $ enviar --mensagem</>)}
+                </button>
+              </form>
+            </Window>
           </motion.div>
         </div>
       </div>

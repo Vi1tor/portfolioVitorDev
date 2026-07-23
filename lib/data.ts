@@ -55,7 +55,6 @@ export const projects = [
     tech: ['TypeScript', 'React', 'Vite', 'Tailwind'],
     github: 'https://github.com/Vi1tor/GuiaDigital',
     live: 'https://guia-digital-eight.vercel.app',
-    accent: 'from-violet-500 to-cyan-400',
   },
   {
     name: 'Guia Gran Reserva',
@@ -63,7 +62,6 @@ export const projects = [
     tech: ['TypeScript', 'React', 'Vercel'],
     github: 'https://github.com/Vi1tor/Guia-Gran-Reserva',
     live: 'https://guia-gran-reserva.vercel.app',
-    accent: 'from-cyan-400 to-blue-500',
   },
   {
     name: 'Villa Monte Verde',
@@ -71,7 +69,6 @@ export const projects = [
     tech: ['TypeScript', 'React', 'Vite'],
     github: 'https://github.com/Vi1tor/villamonteverde',
     live: 'https://guiavillamonteverde.vercel.app',
-    accent: 'from-fuchsia-500 to-violet-500',
   },
   {
     name: 'AuditSystem',
@@ -79,7 +76,6 @@ export const projects = [
     tech: ['JavaScript', 'Node.js', 'Vercel'],
     github: 'https://github.com/Vi1tor/auditSytem',
     live: 'https://audit-sytem.vercel.app',
-    accent: 'from-blue-500 to-cyan-400',
   },
   {
     name: 'Siqueira Passeios',
@@ -87,14 +83,12 @@ export const projects = [
     tech: ['HTML', 'CSS', 'JavaScript'],
     github: 'https://github.com/Vi1tor/Siqueirapasseios',
     live: 'https://siqueirapasseios.vercel.app',
-    accent: 'from-indigo-500 to-fuchsia-500',
   },
   {
     name: 'Sistema Hoteleiro',
     description: 'Análise de mercado hoteleiro com leitura consolidada para gestão.',
     tech: ['JavaScript', 'Node.js', 'APIs'],
     github: 'https://github.com/Vi1tor/sistema-mercado-hotelerio',
-    accent: 'from-violet-500 to-indigo-500',
   },
 ]
 
