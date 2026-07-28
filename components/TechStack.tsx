@@ -1,50 +1,56 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { Cpu, Server, Database, Cloud, Wrench, BookOpen, type LucideIcon } from 'lucide-react'
 import { techStack } from '@/lib/data'
-import Window from '@/components/Window'
 
 const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 16 },
+  initial: { opacity: 0, y: 18 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-40px' },
-  transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1], delay },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1], delay },
 })
+
+const icons: Record<string, LucideIcon> = {
+  'Frontend': Cpu,
+  'Backend': Server,
+  'Database': Database,
+  'Cloud & Deploy': Cloud,
+  'Ferramentas': Wrench,
+  'Aprendendo': BookOpen,
+}
 
 export default function TechStack() {
   return (
-    <section id="stack" className="relative py-24 scroll-mt-20">
+    <section id="stack" className="relative py-28 scroll-mt-24">
       <div className="section-container">
-        <motion.span {...reveal(0)} className="kicker mb-5 block">tecnologias</motion.span>
+        <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <motion.span {...reveal(0)} className="kicker block">Stack</motion.span>
+          <motion.p {...reveal(0.06)} className="max-w-sm text-[13px] text-[color:var(--ink-faint)] sm:text-right">
+            O menor conjunto que resolve, sustenta manutenção e mantém a interface legível.
+          </motion.p>
+        </div>
 
-        <Window path="stack.json">
-          <div className="p-6 font-mono text-sm lg:p-7">
-            <p className="text-white/50">{'{'}</p>
-            <p className="pl-4 text-white/40">
-              <span className="text-[color:var(--keyword)]">"princípio"</span>
-              <span className="text-white/50">: </span>
-              <span className="text-[color:var(--accent)]">"o menor conjunto que resolve, sustenta manutenção e mantém a interface legível"</span>
-              <span className="text-white/50">,</span>
-            </p>
-
-            {techStack.map((cat, i) => (
-              <motion.div key={cat.category} {...reveal(0.04 * i)} className="pl-4 py-3">
-                <p className="mb-2.5">
-                  <span className="text-[color:var(--keyword)]">"{cat.category.toLowerCase()}"</span>
-                  <span className="text-white/50">: [</span>
-                </p>
-                <div className="flex flex-wrap gap-2 pl-4">
+        <div className="grid gap-px overflow-hidden rounded-2xl border sm:grid-cols-2 lg:grid-cols-3" style={{ borderColor: 'var(--border)', background: 'var(--border)' }}>
+          {techStack.map((cat, i) => {
+            const Icon = icons[cat.category] ?? Cpu
+            return (
+              <motion.div key={cat.category} {...reveal(0.04 * i)} className="p-7" style={{ background: 'var(--paper-raised)' }}>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full" style={{ background: 'var(--accent-dim)' }}>
+                    <Icon size={16} style={{ color: 'var(--accent)' }} />
+                  </span>
+                  <h3 className="text-[15px] font-semibold text-[color:var(--ink)]">{cat.category}</h3>
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
                   {cat.items.map(item => (
-                    <span key={item} className="tech-pill">{item}</span>
+                    <span key={item} className="tag-pill">{item}</span>
                   ))}
                 </div>
-                <p className="mt-2.5 text-white/50">],</p>
               </motion.div>
-            ))}
-
-            <p className="text-white/50">{'}'}</p>
-          </div>
-        </Window>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

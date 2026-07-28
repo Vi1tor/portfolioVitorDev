@@ -1,20 +1,21 @@
 'use client'
 
-import Image from 'next/image'
-import Link from 'next/link'
 import { useRef, useEffect, useState } from 'react'
 import { motion, useInView, useMotionValue, animate } from 'framer-motion'
-import { ArrowRight } from 'lucide-react'
 import { personal } from '@/lib/data'
-import Window from '@/components/Window'
 
 const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 22 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay },
+  viewport: { once: true, margin: '-80px' },
+  transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay },
 })
 
+const values = [
+  { n: '01', title: 'Clareza acima de decoração', text: 'Cada elemento na tela precisa justificar seu lugar. O resto é ruído.' },
+  { n: '02', title: 'Velocidade sem atalho', text: 'Entregar rápido é bom. Entregar rápido e estável é o que importa.' },
+  { n: '03', title: 'Interface que funciona no uso real', text: 'Testado com gente de verdade usando, não só bonito em protótipo.' },
+]
 
 function AnimatedStat({ value, label }: { value: string; label: string }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -37,74 +38,56 @@ function AnimatedStat({ value, label }: { value: string; label: string }) {
   }, [inView, numeric, suffix, motionVal])
 
   return (
-    <div ref={ref} className="space-y-1.5">
-      <p className="font-mono text-2xl font-semibold text-[color:var(--accent)]">
+    <div ref={ref}>
+      <p className="font-display text-3xl font-medium" style={{ color: 'var(--ink)' }}>
         {inView ? display : `0${suffix}`}
       </p>
-      <p className="text-[10px] uppercase tracking-[0.24em] text-white/40">{label}</p>
+      <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-[color:var(--ink-faint)]">{label}</p>
     </div>
   )
 }
 
 export default function About() {
   return (
-    <section id="sobre" className="relative py-24 scroll-mt-20">
+    <section id="sobre" className="relative py-28 scroll-mt-24">
       <div className="section-container">
-        <motion.span {...reveal(0)} className="kicker mb-5 block">sobre</motion.span>
+        <motion.span {...reveal(0)} className="kicker mb-8 block">Sobre</motion.span>
 
-        <div className="grid gap-8 lg:grid-cols-[minmax(280px,0.85fr)_minmax(0,1.15fr)] lg:items-start">
-          <motion.div {...reveal(0.06)}>
-            <div className="relative aspect-[4/5] max-h-[520px] overflow-hidden rounded-xl border border-white/10">
-              <Image
-                src={personal.avatar}
-                alt="Vitor Oliveira"
-                fill
-                className="object-cover object-top grayscale-[15%]"
-                sizes="(max-width: 1024px) 100vw, 40vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg)] via-transparent to-transparent" />
-            </div>
-            <div className="mt-3 flex items-center justify-between font-mono text-[10.5px] uppercase tracking-[0.2em] text-white/35">
-              <span>Brasil</span>
-              <span>Remote first</span>
-            </div>
+        <div className="grid gap-x-12 gap-y-14 lg:grid-cols-[1.3fr_0.7fr]">
+          <motion.blockquote {...reveal(0.06)} className="font-display text-3xl font-medium leading-[1.28] tracking-[-0.01em] text-[color:var(--ink)] text-balance sm:text-4xl">
+            Código que organiza, produto que respira. <span className="italic" style={{ color: 'var(--accent)' }}>Reduzir ruído</span> e deixar a experiência mais clara é sempre o ponto de partida.
+          </motion.blockquote>
+
+          <motion.div {...reveal(0.12)} className="grid grid-cols-3 gap-6 content-start lg:pt-2">
+            {personal.stats.map((s, i) => (
+              <AnimatedStat key={i} value={s.value} label={s.label} />
+            ))}
+          </motion.div>
+        </div>
+
+        <div className="mt-14 grid gap-14 lg:grid-cols-[1.3fr_0.7fr]">
+          <motion.div {...reveal(0.1)} className="space-y-5 max-w-2xl text-[16px] leading-8 text-[color:var(--ink-muted)]">
+            <p>{personal.bio}</p>
+            <p>{personal.bio2}</p>
           </motion.div>
 
-          <motion.div {...reveal(0.1)}>
-            <Window path="sobre.md">
-              <div className="p-6 lg:p-7">
-                <h2 className="font-display text-3xl font-semibold leading-[1.1] tracking-[-0.02em] text-white lg:text-4xl">
-                  Código que organiza.<br />Produto que respira.
-                </h2>
-
-                <div className="mt-6 max-w-2xl space-y-4 font-mono text-sm leading-7 text-white/60">
-                  <p><span className="text-white/25">01 </span>{personal.bio}</p>
-                  <p><span className="text-white/25">02 </span>{personal.bio2}</p>
-                </div>
-
-                <div className="mt-8 grid gap-4 border-t border-white/10 pt-6 sm:grid-cols-3">
-                  {personal.stats.map((s, i) => (
-                    <AnimatedStat key={i} value={s.value} label={s.label} />
-                  ))}
-                </div>
-
-                <div className="mt-6 border-t border-white/10 pt-6">
-                  <p className="mb-3 font-mono text-[10.5px] uppercase tracking-[0.2em] text-white/35"># what-i-value</p>
-                  <div className="grid gap-2.5 text-sm text-white/65 sm:grid-cols-3">
-                    {['Clareza acima de decoração.', 'Velocidade sem ruído visual.', 'Interfaces que funcionam no uso real.'].map(v => (
-                      <div key={v} className="rounded-md border border-white/10 bg-white/[0.02] px-3 py-2.5">
-                        {v}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <Link href="#stack" className="btn-secondary mt-7 w-fit">
-                  ver stack completa <ArrowRight size={14} />
-                </Link>
-              </div>
-            </Window>
+          <motion.div {...reveal(0.16)}>
+            <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--ink-faint)] mb-4">Localização</p>
+            <p className="text-[15px] text-[color:var(--ink)]">Brasil</p>
+            <p className="mt-1 text-[15px] text-[color:var(--ink-muted)]">Remoto, fuso America/São_Paulo</p>
           </motion.div>
+        </div>
+
+        <div className="mt-20 divider" />
+
+        <div className="mt-14 grid gap-8 sm:grid-cols-3">
+          {values.map((v, i) => (
+            <motion.div key={v.n} {...reveal(0.05 * i)}>
+              <p className="font-display text-2xl italic" style={{ color: 'var(--accent)' }}>{v.n}</p>
+              <h3 className="mt-3 text-[16px] font-semibold text-[color:var(--ink)]">{v.title}</h3>
+              <p className="mt-2 text-[14px] leading-6 text-[color:var(--ink-muted)]">{v.text}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

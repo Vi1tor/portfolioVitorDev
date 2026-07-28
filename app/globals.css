@@ -4,18 +4,23 @@
 
 @layer base {
   :root {
-    --bg:           #08090a;
-    --bg-elevated:  #0d0f10;
-    --surface:      #101213;
-    --border:       rgba(255, 255, 255, 0.10);
-    --border-hi:    rgba(255, 255, 255, 0.20);
-    --text:         #e7e9e8;
-    --muted:        rgba(231, 233, 232, 0.56);
-    --accent:       #3ddc84;
-    --accent-dim:   rgba(61, 220, 132, 0.14);
-    --accent-ink:   #06120c;
-    --keyword:      #c4b5fd;
-    --amber:        #f2b155;
+    --paper:        #FAF7F0;
+    --paper-raised: #FFFFFF;
+    --paper-dim:    #F1EBDD;
+    --ink:          #17140F;
+    --ink-muted:    rgba(23, 20, 15, 0.62);
+    --ink-faint:    rgba(23, 20, 15, 0.40);
+    --border:       rgba(23, 20, 15, 0.12);
+    --border-hi:    rgba(23, 20, 15, 0.26);
+    --accent:       #C1440E;
+    --accent-ink:   #FFF7F0;
+    --accent-dim:   rgba(193, 68, 14, 0.09);
+    --accent-line:  rgba(193, 68, 14, 0.30);
+
+    --dark-bg:    #17140F;
+    --dark-text:  #F1ECE0;
+    --dark-muted: rgba(241, 236, 224, 0.56);
+    --dark-border: rgba(241, 236, 224, 0.14);
   }
 
   html {
@@ -25,106 +30,111 @@
   }
 
   body {
-    background-color: var(--bg);
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
-    background-size: 48px 48px;
-    background-attachment: fixed;
-    color: var(--text);
+    background-color: var(--paper);
+    color: var(--ink);
     font-family: var(--font-inter), system-ui, sans-serif;
     overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Subtle paper grain — gives the flat color a tactile, printed feel */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
   }
 
   * { box-sizing: border-box; }
 
   ::selection {
-    background: rgba(61, 220, 132, 0.28);
-    color: var(--text);
+    background: var(--accent);
+    color: var(--accent-ink);
   }
 
-  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar { width: 8px; }
   ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: rgba(61, 220, 132, 0.35); border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: rgba(61, 220, 132, 0.55); }
+  ::-webkit-scrollbar-thumb { background: var(--border-hi); border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--ink-faint); }
 }
 
 @layer components {
 
-  /* Layout */
   .section-container {
-    @apply max-w-7xl mx-auto px-5 lg:px-8;
+    @apply max-w-6xl mx-auto px-6 lg:px-10;
   }
 
-  /* Section kicker */
+  /* Small uppercase eyebrow label used above section headings */
   .kicker {
-    @apply inline-flex items-center gap-3 text-[10.5px] font-mono tracking-[0.30em] uppercase;
-    color: var(--accent);
+    @apply inline-flex items-center gap-2.5 text-[11px] font-mono font-medium tracking-[0.22em] uppercase;
+    color: var(--ink-faint);
   }
   .kicker::before {
-    content: '//';
-    display: block;
-    font-family: var(--font-jetbrains), monospace;
-    color: var(--accent);
-    opacity: 0.55;
+    content: '';
+    display: inline-block;
+    width: 14px;
+    height: 1.5px;
+    background: var(--accent);
   }
 
-  /* Divider */
-  .divider { @apply w-full h-px bg-white/[0.08]; }
+  .divider { @apply w-full h-px; background: var(--border); }
 
-  /* Editor window chrome, reused to frame every section */
-  .win {
-    @apply rounded-xl border overflow-hidden;
-    background: var(--surface);
+  /* Editorial card surface — replaces the old terminal-window chrome */
+  .surface {
+    @apply rounded-2xl border;
+    background: var(--paper-raised);
     border-color: var(--border);
   }
-  .win-bar {
-    @apply flex items-center gap-2 border-b px-4 py-3;
+
+  .tag-pill {
+    @apply px-3 py-1 rounded-full text-[12px] font-medium tracking-wide
+      border transition-colors duration-150;
+    background: var(--paper-dim);
     border-color: var(--border);
-    background: var(--bg-elevated);
-  }
-  .win-dot { @apply h-2.5 w-2.5 rounded-full; }
-
-  /* Tech pill */
-  .tech-pill {
-    @apply px-3 py-1 rounded-md text-xs font-mono tracking-wide
-      bg-white/[0.03] border border-white/10 text-white/65
-      transition-all duration-150
-      hover:border-emerald-400/50 hover:text-white;
+    color: var(--ink-muted);
   }
 
-  /* Form input */
   .form-input {
-    @apply w-full bg-white/[0.03] border border-white/10 rounded-lg
-      px-4 py-3 text-sm font-mono text-white placeholder:text-white/25
-      outline-none transition-all duration-150;
+    @apply w-full rounded-lg px-4 py-3 text-[15px]
+      outline-none transition-all duration-150 border;
+    background: var(--paper-raised);
+    border-color: var(--border);
+    color: var(--ink);
   }
+  .form-input::placeholder { color: var(--ink-faint); }
   .form-input:focus {
     border-color: var(--accent);
     box-shadow: 0 0 0 3px var(--accent-dim);
   }
 
-  /* Buttons */
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg
-      text-sm font-semibold font-mono
-      transition-all duration-150
+    @apply inline-flex items-center gap-2 px-6 py-3.5 rounded-full
+      text-[14.5px] font-semibold tracking-wide
+      transition-all duration-200 ease-out
       active:scale-[0.98];
-    background: var(--accent);
-    color: var(--accent-ink);
+    background: var(--ink);
+    color: var(--paper);
   }
   .btn-primary:hover {
-    box-shadow: 0 0 0 1px var(--accent), 0 8px 24px rgba(61, 220, 132, 0.22);
+    background: var(--accent);
+    transform: translateY(-1px);
   }
+
   .btn-secondary {
-    @apply inline-flex items-center gap-2 px-6 py-3 rounded-lg
-      border text-sm font-medium font-mono text-white/80 bg-white/[0.02]
-      transition-all duration-150
-      hover:text-white active:scale-[0.98];
+    @apply inline-flex items-center gap-2 px-6 py-3.5 rounded-full
+      border text-[14.5px] font-semibold tracking-wide
+      transition-all duration-200 ease-out
+      active:scale-[0.98];
     border-color: var(--border-hi);
+    color: var(--ink);
   }
   .btn-secondary:hover {
-    border-color: var(--accent);
+    border-color: var(--ink);
+    background: var(--paper-dim);
   }
 }
 

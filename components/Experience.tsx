@@ -2,38 +2,42 @@
 
 import { motion } from 'framer-motion'
 import { experience } from '@/lib/data'
-import Window from '@/components/Window'
 
 const reveal = (delay = 0) => ({
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-40px' },
-  transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1], delay },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay },
 })
 
 export default function Experience() {
   return (
-    <section id="experiencia" className="relative pb-24">
+    <section id="experiencia" className="relative py-4 pb-28">
       <div className="section-container">
-        <motion.span {...reveal(0)} className="kicker mb-5 block">trajetória</motion.span>
+        <motion.span {...reveal(0)} className="kicker mb-10 block">Trajetória</motion.span>
 
-        <Window path="experiencia.log" meta={`${experience.length} commits`}>
-          <div className="divide-y divide-white/8 font-mono text-sm">
-            {experience.map((item, i) => (
-              <motion.div key={item.year} {...reveal(0.05 + i * 0.06)} className="grid gap-2 p-5 lg:grid-cols-[150px_1fr] lg:gap-6 lg:p-6">
-                <div>
-                  <p className="text-[color:var(--accent)]">{item.year}</p>
-                  <p className="mt-1 text-[10.5px] uppercase tracking-[0.18em] text-white/35">{item.period}</p>
+        <div>
+          {experience.map((item, i) => (
+            <motion.div
+              key={item.year}
+              {...reveal(0.06 * i)}
+              className="group grid gap-3 border-t py-8 first:border-t-0 sm:grid-cols-[140px_1fr] sm:gap-8 lg:grid-cols-[180px_1fr]"
+              style={{ borderColor: 'var(--border)' }}
+            >
+              <div>
+                <p className="font-display text-3xl font-medium text-[color:var(--ink)]">{item.year}</p>
+                <p className="mt-1.5 text-[12px] text-[color:var(--ink-faint)]">{item.period}</p>
+              </div>
+              <div>
+                <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <h3 className="text-[18px] font-semibold text-[color:var(--ink)]">{item.title}</h3>
+                  <span className="text-[13px] text-[color:var(--ink-faint)]">{item.company}</span>
                 </div>
-                <div>
-                  <p className="text-white">{item.title}</p>
-                  <p className="mt-1 text-[10.5px] uppercase tracking-[0.18em] text-white/35">{item.company}</p>
-                  <p className="mt-3 max-w-2xl text-[13px] leading-6 text-white/55">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </Window>
+                <p className="mt-3 max-w-2xl text-[15px] leading-7 text-[color:var(--ink-muted)]">{item.description}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   )

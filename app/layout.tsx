@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
-import { Inter, Syne, JetBrains_Mono } from 'next/font/google'
+import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import Header from '@/components/Header'
-import CustomCursor from '@/components/CustomCursor'
 import CommandPalette from '@/components/CommandPalette'
 
 const inter = Inter({
@@ -12,10 +11,12 @@ const inter = Inter({
   display: 'swap',
 })
 
-const syne = Syne({
+const fraunces = Fraunces({
   subsets: ['latin'],
-  variable: '--font-syne',
+  variable: '--font-fraunces',
   display: 'swap',
+  axes: ['opsz', 'SOFT', 'WONK'],
+  style: ['normal', 'italic'],
 })
 
 const jetbrainsMono = JetBrains_Mono({
@@ -117,8 +118,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
       </head>
-      <body className={`${inter.variable} ${syne.variable} ${jetbrainsMono.variable} antialiased`}>
-        <CustomCursor />
+      <body className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable} antialiased`}>
         <Header />
         <CommandPalette />
         {children}

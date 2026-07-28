@@ -10,7 +10,7 @@ export default function Image() {
     (
       <div
         style={{
-          background: 'linear-gradient(135deg, #05060b 0%, #12101f 55%, #0a1620 100%)',
+          background: '#FAF7F0',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -22,62 +22,52 @@ export default function Image() {
           position: 'relative',
         }}
       >
-        <p
+        <div
           style={{
-            color: '#22D3EE',
-            fontSize: '14px',
-            letterSpacing: '0.3em',
-            textTransform: 'uppercase',
-            margin: '0 0 32px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+            marginBottom: '40px',
           }}
         >
-          Portfolio
+          <div style={{ width: '14px', height: '2px', background: '#C1440E' }} />
+          <p style={{ color: '#17140F99', fontSize: '15px', letterSpacing: '0.2em', textTransform: 'uppercase', margin: 0 }}>
+            Desenvolvedor Full Stack
+          </p>
+        </div>
+
+        <p
+          style={{
+            color: '#17140F',
+            fontSize: '88px',
+            fontWeight: 600,
+            margin: '0 0 28px',
+            lineHeight: 1.02,
+          }}
+        >
+          Vitor <span style={{ color: '#C1440E', fontStyle: 'italic' }}>Oliveira</span>
         </p>
 
         <p
           style={{
-            color: '#F2F4F9',
-            fontSize: '80px',
-            fontWeight: 700,
-            margin: '0 0 12px',
-            lineHeight: 1.0,
-          }}
-        >
-          Vitor Oliveira
-        </p>
-
-        <p
-          style={{
-            color: '#22D3EE',
-            fontSize: '34px',
+            color: '#17140F99',
+            fontSize: '26px',
             fontWeight: 400,
-            margin: '0 0 52px',
-          }}
-        >
-          Desenvolvedor Full Stack
-        </p>
-
-        <p
-          style={{
-            color: '#F2F4F9',
-            fontSize: '17px',
-            opacity: 0.4,
             margin: 0,
-            letterSpacing: '0.06em',
+            maxWidth: '720px',
           }}
         >
-          React · TypeScript · Node.js · Java · Next.js
+          Produtos digitais com direção clara, ritmo calmo e foco em uso real.
         </p>
 
         <p
           style={{
             position: 'absolute',
-            bottom: '48px',
+            bottom: '56px',
             right: '80px',
-            color: '#22D3EE',
-            fontSize: '13px',
-            opacity: 0.5,
-            letterSpacing: '0.18em',
+            color: '#17140F66',
+            fontSize: '15px',
+            letterSpacing: '0.1em',
             margin: 0,
           }}
         >

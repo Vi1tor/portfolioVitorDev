@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import Window from '@/components/Window'
+import { TerminalSquare } from 'lucide-react'
 
 const PROMPT = 'vitor@portfolio:~$'
 
@@ -47,7 +47,7 @@ const COMMANDS: Record<string, string[]> = {
 type Line = { type: 'input' | 'output' | 'error'; text: string }
 
 const WELCOME: Line[] = [
-  { type: 'output', text: 'Bem-vindo ao portfolio de Vitor Oliveira.' },
+  { type: 'output', text: 'Curioso? Isso aqui funciona de verdade.' },
   { type: 'output', text: 'Digite "help" para ver os comandos disponíveis.' },
   { type: 'output', text: '' },
 ]
@@ -115,19 +115,34 @@ export default function Terminal() {
   }
 
   return (
-    <section id="terminal" className="relative pb-24">
+    <section id="terminal" className="relative py-8 pb-4">
       <div className="section-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="kicker mb-5 block">interativo — não é só decoração</span>
+          <div className="mb-6 flex items-center gap-2.5">
+            <TerminalSquare size={15} style={{ color: 'var(--ink-faint)' }} />
+            <span className="text-[11px] font-mono font-medium uppercase tracking-[0.22em] text-[color:var(--ink-faint)]">
+              Antes de ir — um console de verdade
+            </span>
+          </div>
 
-          <Window path="terminal" meta="tente 'help'">
+          <div
+            className="overflow-hidden rounded-2xl border shadow-card"
+            style={{ background: 'var(--dark-bg)', borderColor: 'var(--dark-border)' }}
+          >
+            <div className="flex items-center gap-2 border-b px-5 py-3.5" style={{ borderColor: 'var(--dark-border)' }}>
+              <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e]" />
+              <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+              <span className="ml-3 font-mono text-[11px] tracking-wide" style={{ color: 'var(--dark-muted)' }}>terminal</span>
+            </div>
+
             <div onClick={() => inputRef.current?.focus()}>
-              <div ref={outputRef} className="h-72 overflow-y-auto px-5 pt-4 pb-2 font-mono text-[13px] leading-6 lg:px-6">
+              <div ref={outputRef} className="h-64 overflow-y-auto px-5 pt-4 pb-2 font-mono text-[13px] leading-6 lg:px-6">
                 <AnimatePresence initial={false}>
                   {lines.map((line, i) => (
                     <motion.div
@@ -135,13 +150,12 @@ export default function Terminal() {
                       initial={{ opacity: 0, x: -4 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.15 }}
-                      className={
-                        line.type === 'input'
-                          ? 'text-[color:var(--accent)]'
-                          : line.type === 'error'
-                          ? 'text-red-400/80'
-                          : 'text-white/60'
-                      }
+                      style={{
+                        color:
+                          line.type === 'input' ? 'var(--accent)'
+                          : line.type === 'error' ? '#f28b82'
+                          : 'var(--dark-muted)',
+                      }}
                     >
                       {line.text || ' '}
                     </motion.div>
@@ -149,21 +163,22 @@ export default function Terminal() {
                 </AnimatePresence>
               </div>
 
-              <div className="flex items-center gap-3 border-t border-white/8 px-5 py-3.5 lg:px-6">
-                <span className="font-mono text-sm text-[color:var(--accent)]">{PROMPT}</span>
+              <div className="flex items-center gap-3 border-t px-5 py-3.5 lg:px-6" style={{ borderColor: 'var(--dark-border)' }}>
+                <span className="font-mono text-sm" style={{ color: 'var(--accent)' }}>{PROMPT}</span>
                 <input
                   ref={inputRef}
                   value={input}
                   onChange={e => setInput(e.target.value)}
                   onKeyDown={onKey}
-                  className="flex-1 bg-transparent font-mono text-sm text-white/80 outline-none placeholder:text-white/20"
+                  className="flex-1 bg-transparent font-mono text-sm outline-none"
+                  style={{ color: 'var(--dark-text)' }}
                   placeholder="digite um comando..."
                   autoComplete="off"
                   spellCheck={false}
                 />
               </div>
             </div>
-          </Window>
+          </div>
         </motion.div>
       </div>
     </section>

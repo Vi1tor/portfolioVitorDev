@@ -1,99 +1,128 @@
 'use client'
 
+import { useRef } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { ArrowDown, Github, Mail } from 'lucide-react'
+import { ArrowDown, ArrowUpRight, Github, Mail } from 'lucide-react'
 import { personal } from '@/lib/data'
-import Window from '@/components/Window'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 14 },
+  initial: { opacity: 0, y: 16 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] as const, delay },
+  transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const, delay },
 })
 
+const [firstName, ...restName] = personal.name.split(' ')
+const lastName = restName.join(' ')
+
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const reducedMotion = usePrefersReducedMotion()
+
+  const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    if (reducedMotion || !sectionRef.current) return
+    const rect = sectionRef.current.getBoundingClientRect()
+    sectionRef.current.style.setProperty('--mx', `${e.clientX - rect.left}px`)
+    sectionRef.current.style.setProperty('--my', `${e.clientY - rect.top}px`)
+  }
+
   return (
-    <section id="home" className="relative min-h-[100svh] overflow-hidden pt-32 pb-20">
-      <div className="section-container relative z-10 grid gap-14 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:items-center">
+    <section
+      id="home"
+      ref={sectionRef}
+      onMouseMove={onMouseMove}
+      className="relative min-h-[100svh] overflow-hidden pt-40 pb-24"
+    >
+      {/* Soft glow that follows the cursor — subtle, disabled for reduced motion */}
+      {!reducedMotion && (
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 z-0 transition-opacity duration-500"
+          style={{
+            background:
+              'radial-gradient(480px circle at var(--mx, 60%) var(--my, 20%), var(--accent-dim), transparent 70%)',
+          }}
+        />
+      )}
+
+      <div className="section-container relative z-10 grid gap-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(280px,0.85fr)] lg:items-center">
         {/* Left: main content */}
         <div>
-          <motion.div {...reveal(0)} className="mb-8 flex items-center gap-2 font-mono text-[13px] text-white/45">
-            <span className="text-[color:var(--accent)]">vitor@portfolio</span>
-            <span>:~$</span>
-            <span className="text-white/70">whoami</span>
-          </motion.div>
+          <motion.p {...reveal(0)} className="kicker mb-7">
+            {personal.role} · Brasil, remoto
+          </motion.p>
 
           <motion.h1
             {...reveal(0.08)}
-            className="font-display font-semibold leading-[0.96] tracking-[-0.03em] text-white"
-            style={{ fontSize: 'clamp(2.4rem, 6vw, 4.75rem)' }}
+            className="font-display font-medium leading-[0.98] tracking-[-0.02em] text-[color:var(--ink)] text-balance"
+            style={{ fontSize: 'clamp(2.75rem, 7vw, 5.5rem)' }}
           >
-            {personal.name}
-            <span className="animate-caret ml-1 inline-block h-[0.85em] w-[0.5ch] translate-y-[0.08em] bg-[var(--accent)] align-middle" />
+            {firstName}{' '}
+            <span className="italic" style={{ color: 'var(--accent)' }}>{lastName}</span>
           </motion.h1>
 
-          <motion.p {...reveal(0.16)} className="mt-5 font-mono text-lg text-[color:var(--accent)]">
-            &gt; {personal.role}
-          </motion.p>
-
-          <motion.p {...reveal(0.22)} className="mt-5 max-w-xl text-base leading-7 text-white/60">
+          <motion.p
+            {...reveal(0.18)}
+            className="mt-7 max-w-lg text-[17px] leading-8 text-[color:var(--ink-muted)] text-balance"
+          >
             {personal.tagline}
           </motion.p>
 
-          <motion.div {...reveal(0.3)} className="mt-9 flex flex-wrap items-center gap-3">
+          <motion.div {...reveal(0.28)} className="mt-10 flex flex-wrap items-center gap-3.5">
             <a href="#projetos" className="btn-primary">
-              $ ver --projetos
+              Ver projetos <ArrowUpRight size={16} />
             </a>
             <a href="#contato" className="btn-secondary">
-              $ contato --abrir
+              Falar comigo
             </a>
           </motion.div>
 
-          <motion.div {...reveal(0.38)} className="mt-9 flex flex-wrap items-center gap-5">
-            <span className="inline-flex items-center gap-2 rounded-md border border-white/10 px-3 py-1.5 font-mono text-[11px] text-white/55">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-pulse-dot rounded-full bg-[var(--accent)]" />
+          <motion.div {...reveal(0.36)} className="mt-11 flex flex-wrap items-center gap-6">
+            <span className="inline-flex items-center gap-2 text-[13px] font-medium text-[color:var(--ink-muted)]">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-pulse-dot rounded-full" style={{ background: 'var(--accent)' }} />
               </span>
-              disponível para novos projetos
+              Disponível para novos projetos
             </span>
-            <div className="flex items-center gap-4 text-white/40">
-              <a href={personal.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="transition-colors hover:text-white">
+            <div className="flex items-center gap-4 text-[color:var(--ink-faint)]">
+              <a href={personal.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub" className="transition-colors hover:text-[color:var(--ink)]">
                 <Github size={17} />
               </a>
-              <a href={`mailto:${personal.email}`} aria-label="Email" className="transition-colors hover:text-white">
+              <a href={`mailto:${personal.email}`} aria-label="Email" className="transition-colors hover:text-[color:var(--ink)]">
                 <Mail size={17} />
               </a>
-              <span className="font-mono text-xs">Brasil · Remote</span>
             </div>
           </motion.div>
         </div>
 
-        {/* Right: code panel */}
+        {/* Right: portrait */}
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.34 }}
-          className="hidden lg:block"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          className="relative hidden lg:block"
         >
-          <Window path="whoami.ts">
-            <div className="p-5 font-mono text-[13px] leading-7">
-              <p className="text-white/30">// desenvolvedor full stack</p>
-              <p><span className="text-[color:var(--keyword)]">const</span> <span className="text-white">dev</span> = {'{'}</p>
-              <p className="pl-4 text-white/70">name: <span className="text-[color:var(--accent)]">'Vitor Oliveira'</span>,</p>
-              <p className="pl-4 text-white/70">stack: <span className="text-[color:var(--accent)]">'React · Node · Java'</span>,</p>
-              <p className="pl-4 text-white/70">focus: <span className="text-[color:var(--accent)]">'clareza & entrega'</span>,</p>
-              <p>{'}'}</p>
-              <p className="mt-3 text-white/30">// output</p>
-              <div className="mt-2 grid grid-cols-3 gap-3 border-t border-white/8 pt-4">
-                {personal.stats.map(s => (
-                  <div key={s.label}>
-                    <p className="text-lg font-semibold text-white">{s.value}</p>
-                    <p className="mt-1 text-[9px] uppercase tracking-[0.16em] text-white/35">{s.label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Window>
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[28px]" style={{ background: 'var(--paper-dim)' }}>
+            <Image
+              src={personal.avatar}
+              alt={personal.name}
+              fill
+              className="object-cover object-top"
+              sizes="(max-width: 1024px) 0px, 38vw"
+              priority
+            />
+          </div>
+
+          <div
+            className="absolute -bottom-6 -left-6 rounded-2xl border px-5 py-4 shadow-card"
+            style={{ background: 'var(--paper-raised)', borderColor: 'var(--border)' }}
+          >
+            <p className="font-display text-2xl font-semibold" style={{ color: 'var(--accent)' }}>{personal.stats[0].value}</p>
+            <p className="mt-0.5 text-[11px] uppercase tracking-[0.16em] text-[color:var(--ink-faint)]">
+              {personal.stats[0].label}
+            </p>
+          </div>
         </motion.div>
       </div>
 
@@ -102,10 +131,10 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="absolute inset-x-0 bottom-8 z-10 mx-auto flex w-fit flex-col items-center gap-2 font-mono text-white/30 transition-colors hover:text-white/60"
+        className="absolute inset-x-0 bottom-8 z-10 mx-auto flex w-fit flex-col items-center gap-2 text-[color:var(--ink-faint)] transition-colors hover:text-[color:var(--ink)]"
         aria-label="Rolar para a seção Sobre"
       >
-        <span className="text-[10px] uppercase tracking-[0.3em]">rolar</span>
+        <span className="text-[10px] font-medium uppercase tracking-[0.3em]">rolar</span>
         <ArrowDown size={14} className="animate-bounce" />
       </motion.a>
     </section>
