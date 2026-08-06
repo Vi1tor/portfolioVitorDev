@@ -25,7 +25,7 @@ export default function TechStack() {
     <section id="stack" className="relative py-28 scroll-mt-24">
       <div className="section-container">
         <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <motion.span {...reveal(0)} className="kicker block">Stack</motion.span>
+          <motion.h2 {...reveal(0)} className="kicker block">Stack</motion.h2>
           <motion.p {...reveal(0.06)} className="max-w-sm text-[13px] text-[color:var(--ink-faint)] sm:text-right">
             O menor conjunto que resolve, sustenta manutenção e mantém a interface legível.
           </motion.p>

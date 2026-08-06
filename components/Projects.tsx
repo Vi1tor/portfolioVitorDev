@@ -19,9 +19,9 @@ export default function Projects() {
     <section id="projetos" className="relative py-28 scroll-mt-24">
       <div className="section-container">
         <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <motion.span {...reveal(0)} className="kicker block">Trabalho selecionado</motion.span>
+          <motion.h2 {...reveal(0)} className="kicker block">Trabalho selecionado</motion.h2>
           <motion.p {...reveal(0.06)} className="text-[13px] text-[color:var(--ink-faint)]">
-            {projects.length} projetos publicados
+            {projects.length} projetos publicados — a maioria para hotelaria e turismo
           </motion.p>
         </div>
 
@@ -30,13 +30,16 @@ export default function Projects() {
             const isOpen = activeIdx === i
             return (
               <motion.div key={project.name} {...reveal(0.04 * i)} className="border-b" style={{ borderColor: 'var(--border)' }}>
+                <h3 style={{ margin: 0, fontSize: 'inherit', fontWeight: 'inherit', lineHeight: 'inherit' }}>
                 <button
                   onClick={() => setActiveIdx(isOpen ? null : i)}
+                  aria-expanded={isOpen}
                   className="group flex w-full items-center gap-5 py-7 text-left transition-colors sm:gap-8"
                 >
                   <span
                     className="font-display text-2xl italic transition-colors sm:text-3xl"
                     style={{ color: isOpen ? 'var(--accent)' : 'var(--ink-faint)' }}
+                    aria-hidden="true"
                   >
                     {String(i + 1).padStart(2, '0')}
                   </span>
@@ -58,6 +61,7 @@ export default function Projects() {
                     <ArrowUpRight size={15} style={{ color: isOpen ? 'var(--accent)' : 'var(--ink-faint)' }} />
                   </span>
                 </button>
+                </h3>
 
                 <AnimatePresence>
                   {isOpen && (

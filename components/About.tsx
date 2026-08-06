@@ -51,7 +51,7 @@ export default function About() {
   return (
     <section id="sobre" className="relative py-28 scroll-mt-24">
       <div className="section-container">
-        <motion.span {...reveal(0)} className="kicker mb-8 block">Sobre</motion.span>
+        <motion.h2 {...reveal(0)} className="kicker mb-8 block">Sobre</motion.h2>
 
         <div className="grid gap-x-12 gap-y-14 lg:grid-cols-[1.3fr_0.7fr]">
           <motion.blockquote {...reveal(0.06)} className="font-display text-3xl font-medium leading-[1.28] tracking-[-0.01em] text-[color:var(--ink)] text-balance sm:text-4xl">

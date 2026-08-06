@@ -9,7 +9,7 @@
     --paper-dim:    #F1EBDD;
     --ink:          #17140F;
     --ink-muted:    rgba(23, 20, 15, 0.62);
-    --ink-faint:    rgba(23, 20, 15, 0.40);
+    --ink-faint:    rgba(23, 20, 15, 0.60);
     --border:       rgba(23, 20, 15, 0.12);
     --border-hi:    rgba(23, 20, 15, 0.26);
     --accent:       #C1440E;
@@ -102,7 +102,7 @@
     @apply w-full rounded-lg px-4 py-3 text-[15px]
       outline-none transition-all duration-150 border;
     background: var(--paper-raised);
-    border-color: var(--border);
+    border-color: var(--border-hi);
     color: var(--ink);
   }
   .form-input::placeholder { color: var(--ink-faint); }

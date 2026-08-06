@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google'
 import Script from 'next/script'
+import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 import Header from '@/components/Header'
 import CommandPalette from '@/components/CommandPalette'
@@ -30,17 +31,21 @@ const BASE_URL = 'https://www.vitorprogramador.com.br'
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'Vitor Oliveira — Desenvolvedor Full Stack',
+    default: 'Vitor Oliveira — Desenvolvedor Full Stack | Hotelaria & Turismo',
     template: '%s | Vitor Oliveira',
   },
   description:
-    'Portfólio de Vitor Oliveira, dev full stack freelance no Brasil. Especialista em React, TypeScript, Node.js e Java. Produtos digitais bem resolvidos.',
+    'Desenvolvedor full stack freelance no Brasil, especializado em produtos digitais para hotelaria e turismo — guias para hóspedes, sistemas e sites institucionais. React, TypeScript, Node.js e Java.',
   keywords: [
     'Vitor Oliveira',
     'Vitor Oliveira desenvolvedor',
     'Desenvolvedor Full Stack',
     'Desenvolvedor Full Stack Freelance',
     'Desenvolvedor Freelance Brasil',
+    'Guia digital para hotelaria',
+    'Desenvolvedor para hotéis e pousadas',
+    'Sites para turismo',
+    'Guia do hóspede digital',
     'React',
     'TypeScript',
     'Next.js',
@@ -56,15 +61,14 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     url: BASE_URL,
     siteName: 'Vitor Oliveira — Desenvolvedor Full Stack',
-    title: 'Vitor Oliveira — Desenvolvedor Full Stack',
+    title: 'Vitor Oliveira — Desenvolvedor Full Stack | Hotelaria & Turismo',
     description:
-      'Produtos digitais claros, estáveis e bem resolvidos. React, TypeScript, Node.js, Java.',
+      'Produtos digitais para hotelaria e turismo, além de sistemas e sites institucionais. React, TypeScript, Node.js, Java.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Vitor Oliveira — Desenvolvedor Full Stack',
+    title: 'Vitor Oliveira — Desenvolvedor Full Stack | Hotelaria & Turismo',
     description: 'Produtos digitais claros, estáveis e bem resolvidos.',
-    creator: '@vitor_oliveira',
   },
   robots: {
     index: true,
@@ -95,10 +99,13 @@ const jsonLd = {
   sameAs: ['https://github.com/Vi1tor'],
   jobTitle: 'Desenvolvedor Full Stack',
   description:
-    'Desenvolvedor Full Stack freelance no Brasil. React, TypeScript, Node.js, Java.',
+    'Desenvolvedor Full Stack freelance no Brasil, especializado em produtos digitais para hotelaria e turismo. React, TypeScript, Node.js, Java.',
   image: 'https://avatars.githubusercontent.com/u/161656799?v=4',
   email: 'vitor7pb@gmail.com',
-  knowsAbout: ['React', 'TypeScript', 'Next.js', 'Node.js', 'Java', 'PostgreSQL', 'Tailwind CSS'],
+  knowsAbout: [
+    'React', 'TypeScript', 'Next.js', 'Node.js', 'Java', 'PostgreSQL', 'Tailwind CSS',
+    'Guias digitais para hotelaria', 'Turismo digital',
+  ],
   worksFor: { '@type': 'Organization', name: 'Freelance' },
   address: { '@type': 'PostalAddress', addressCountry: 'BR' },
 }
@@ -122,6 +129,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <CommandPalette />
         {children}
+        <Analytics />
       </body>
     </html>
   )

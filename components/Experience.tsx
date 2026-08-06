@@ -14,7 +14,7 @@ export default function Experience() {
   return (
     <section id="experiencia" className="relative py-4 pb-28">
       <div className="section-container">
-        <motion.span {...reveal(0)} className="kicker mb-10 block">Trajetória</motion.span>
+        <motion.h2 {...reveal(0)} className="kicker mb-10 block">Trajetória</motion.h2>
 
         <div>
           {experience.map((item, i) => (
