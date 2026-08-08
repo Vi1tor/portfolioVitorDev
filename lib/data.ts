@@ -4,6 +4,7 @@ export const personal = {
   tagline: 'Produtos digitais com direção clara, ritmo calmo e foco em uso real.',
   bio: 'Desenvolvedor Full Stack com interesse em interface, arquitetura e entrega. Trabalho com React e TypeScript no frontend e Node.js / Java no backend, com atenção ao que o produto pede antes de pensar em ornamento.',
   bio2: 'Já coloquei no ar guias para hotelaria, sistemas de auditoria, sites institucionais e ferramentas sob medida. O ponto de partida costuma ser sempre o mesmo: reduzir ruído e deixar a experiência mais clara.',
+  bio3: 'Também assumo a gestão de tráfego pago — Meta Ads e Google Ads — para quem já tem o site e precisa de tração real, não só visita.',
   email: 'vitor7pb@gmail.com',
   github: 'https://github.com/Vi1tor',
   website: 'https://www.vitorprogramador.com.br',
@@ -24,7 +25,7 @@ export const techStack = [
   {
     category: 'Backend',
     icon: '⚙️',
-    items: ['Node.js', 'Java', 'REST APIs', 'Express.js'],
+    items: ['Node.js', 'Java', 'Python', 'REST APIs', 'Express.js'],
   },
   {
     category: 'Database',
@@ -40,6 +41,11 @@ export const techStack = [
     category: 'Ferramentas',
     icon: '🛠️',
     items: ['Git', 'GitHub', 'Figma', 'VS Code'],
+  },
+  {
+    category: 'Tráfego Pago',
+    icon: '📣',
+    items: ['Meta Ads', 'Google Ads', 'Google Analytics'],
   },
   {
     category: 'Aprendendo',

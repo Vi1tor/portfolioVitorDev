@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Cpu, Server, Database, Cloud, Wrench, BookOpen, type LucideIcon } from 'lucide-react'
+import { Cpu, Server, Database, Cloud, Wrench, Megaphone, BookOpen, type LucideIcon } from 'lucide-react'
 import { techStack } from '@/lib/data'
 
 const reveal = (delay = 0) => ({
@@ -17,6 +17,7 @@ const icons: Record<string, LucideIcon> = {
   'Database': Database,
   'Cloud & Deploy': Cloud,
   'Ferramentas': Wrench,
+  'Tráfego Pago': Megaphone,
   'Aprendendo': BookOpen,
 }
 

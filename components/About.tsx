@@ -69,6 +69,7 @@ export default function About() {
           <motion.div {...reveal(0.1)} className="space-y-5 max-w-2xl text-[16px] leading-8 text-[color:var(--ink-muted)]">
             <p>{personal.bio}</p>
             <p>{personal.bio2}</p>
+            <p>{personal.bio3}</p>
           </motion.div>
 
           <motion.div {...reveal(0.16)}>
