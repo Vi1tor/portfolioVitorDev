@@ -2,13 +2,9 @@
 
 import { motion } from 'framer-motion'
 import { experience } from '@/lib/data'
+import { reveal as revealBase } from '@/lib/motion'
 
-const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1], delay },
-})
+const reveal = (delay = 0) => revealBase(delay, { y: 20, duration: 0.6 })
 
 export default function Experience() {
   return (

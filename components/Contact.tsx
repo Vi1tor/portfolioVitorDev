@@ -4,13 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Mail, Github, Globe, Send, ArrowUpRight } from 'lucide-react'
 import { personal } from '@/lib/data'
-
-const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 18 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1], delay },
-})
+import { reveal } from '@/lib/motion'
 
 const channels = [
   { icon: Mail,   label: 'Email',  val: personal.email,   href: `mailto:${personal.email}` },
@@ -28,8 +22,8 @@ export default function Contact() {
     const email = data.get('email') as string
     const subject = data.get('subject') as string
     const message = data.get('message') as string
-    const body = `Nome: ${name}%0AEmail: ${email}%0A%0A${message}`
-    window.location.href = `mailto:${personal.email}?subject=${encodeURIComponent(subject || 'Contato via portfólio')}&body=${body}`
+    const body = `Nome: ${name}\nEmail: ${email}\n\n${message}`
+    window.location.href = `mailto:${personal.email}?subject=${encodeURIComponent(subject || 'Contato via portfólio')}&body=${encodeURIComponent(body)}`
     setSent(true)
     setTimeout(() => setSent(false), 4000)
   }

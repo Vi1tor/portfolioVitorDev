@@ -19,37 +19,30 @@ export const personal = {
 export const techStack = [
   {
     category: 'Frontend',
-    icon: '⚡',
     items: ['React', 'TypeScript', 'Next.js', 'Tailwind CSS', 'Vite', 'Framer Motion'],
   },
   {
     category: 'Backend',
-    icon: '⚙️',
     items: ['Node.js', 'Java', 'Python', 'REST APIs', 'Express.js'],
   },
   {
     category: 'Database',
-    icon: '🗄️',
     items: ['PostgreSQL', 'MySQL', 'Firebase', 'Prisma ORM'],
   },
   {
     category: 'Cloud & Deploy',
-    icon: '☁️',
     items: ['Vercel', 'Railway', 'Docker', 'GitHub Actions'],
   },
   {
     category: 'Ferramentas',
-    icon: '🛠️',
     items: ['Git', 'GitHub', 'Figma', 'VS Code'],
   },
   {
     category: 'Tráfego Pago',
-    icon: '📣',
     items: ['Meta Ads', 'Google Ads', 'Google Analytics'],
   },
   {
     category: 'Aprendendo',
-    icon: '📚',
     items: ['Spring Boot', 'AWS', 'GraphQL', 'Kubernetes'],
   },
 ]

@@ -19,6 +19,7 @@ export default function CommandPalette() {
   const [selected, setSelected] = useState(0)
   const [copied, setCopied] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const actions: Action[] = useMemo(() => [
     { id: 'home',     label: 'Início',          hint: 'Voltar ao topo',      icon: ArrowRight, run: () => scrollTo('#home') },
@@ -27,7 +28,7 @@ export default function CommandPalette() {
     { id: 'stack',    label: 'Stack',           hint: 'Tecnologias que uso', icon: ArrowRight, run: () => scrollTo('#stack') },
     { id: 'terminal', label: 'Console',         hint: 'Terminal interativo', icon: ArrowRight, run: () => scrollTo('#terminal') },
     { id: 'contato',  label: 'Contato',         hint: 'Falar comigo',        icon: ArrowRight, run: () => scrollTo('#contato') },
-    { id: 'github',   label: 'Abrir GitHub',    hint: 'github.com/Vi1tor',   icon: Github, run: () => window.open(personal.github, '_blank') },
+    { id: 'github',   label: 'Abrir GitHub',    hint: 'github.com/Vi1tor',   icon: Github, run: () => { window.open(personal.github, '_blank'); close() } },
     { id: 'email',    label: 'Copiar email',    hint: personal.email,        icon: Mail, run: () => copyEmail() },
   ], [])
 
@@ -39,10 +40,15 @@ export default function CommandPalette() {
   function copyEmail() {
     navigator.clipboard.writeText(personal.email)
     setCopied(true)
-    setTimeout(() => { setCopied(false); close() }, 700)
+    if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current)
+    copyTimeoutRef.current = setTimeout(() => { setCopied(false); close() }, 700)
   }
 
   function close() {
+    if (copyTimeoutRef.current) {
+      clearTimeout(copyTimeoutRef.current)
+      copyTimeoutRef.current = null
+    }
     setOpen(false)
     setQuery('')
     setSelected(0)

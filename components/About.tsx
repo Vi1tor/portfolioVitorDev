@@ -3,13 +3,9 @@
 import { useRef, useEffect, useState } from 'react'
 import { motion, useInView, useMotionValue, animate } from 'framer-motion'
 import { personal } from '@/lib/data'
+import { reveal as revealBase } from '@/lib/motion'
 
-const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 22 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-80px' },
-  transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay },
-})
+const reveal = (delay = 0) => revealBase(delay, { y: 22, duration: 0.65, margin: '-80px' })
 
 const values = [
   { n: '01', title: 'Clareza acima de decoração', text: 'Cada elemento na tela precisa justificar seu lugar. O resto é ruído.' },

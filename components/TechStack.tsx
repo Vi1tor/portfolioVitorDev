@@ -3,13 +3,7 @@
 import { motion } from 'framer-motion'
 import { Cpu, Server, Database, Cloud, Wrench, Megaphone, BookOpen, type LucideIcon } from 'lucide-react'
 import { techStack } from '@/lib/data'
-
-const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 18 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1], delay },
-})
+import { reveal } from '@/lib/motion'
 
 const icons: Record<string, LucideIcon> = {
   'Frontend': Cpu,

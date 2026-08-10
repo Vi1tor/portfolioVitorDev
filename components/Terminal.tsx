@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, KeyboardEvent } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { TerminalSquare } from 'lucide-react'
+import { easeOut } from '@/lib/motion'
 
 const PROMPT = 'vitor@portfolio:~$'
 
@@ -121,7 +122,7 @@ export default function Terminal() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, ease: easeOut }}
         >
           <div className="mb-6 flex items-center gap-2.5">
             <TerminalSquare size={15} style={{ color: 'var(--ink-faint)' }} />

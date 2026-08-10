@@ -4,13 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Github, ArrowUpRight } from 'lucide-react'
 import { projects } from '@/lib/data'
-
-const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 18 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-60px' },
-  transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1], delay },
-})
+import { reveal, easeOut } from '@/lib/motion'
 
 export default function Projects() {
   const [activeIdx, setActiveIdx] = useState<number | null>(0)
@@ -69,7 +63,7 @@ export default function Projects() {
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: 'auto' }}
                       exit={{ opacity: 0, height: 0 }}
-                      transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ duration: 0.3, ease: easeOut }}
                       className="overflow-hidden"
                     >
                       <div className="grid gap-6 pb-8 pl-0 sm:grid-cols-[64px_1fr] sm:pl-0 lg:grid-cols-[84px_1fr]">

@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Command } from 'lucide-react'
+import { easeOut } from '@/lib/motion'
 
 const links = [
   { label: 'Sobre',     href: '#sobre' },
@@ -16,7 +17,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [active, setActive] = useState('#home')
-  const [isMac, setIsMac] = useState(true)
+  const [isMac, setIsMac] = useState<boolean | null>(null)
 
   useEffect(() => {
     setIsMac(/Mac|iPhone|iPad/.test(navigator.platform ?? navigator.userAgent))
@@ -55,7 +56,7 @@ export default function Header() {
       <motion.header
         initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.5, ease: easeOut }}
         className={`fixed top-0 left-0 right-0 z-50 border-b transition-colors duration-300 ${
           scrolled ? 'border-[var(--border)]' : 'border-transparent'
         }`}
@@ -108,7 +109,7 @@ export default function Header() {
                 style={{ borderColor: 'var(--border)', color: 'var(--ink-faint)' }}
                 aria-label="Abrir busca rápida"
               >
-                {isMac ? <Command size={11} /> : <span>Ctrl</span>}
+                {isMac === null ? null : isMac ? <Command size={11} /> : <span>Ctrl</span>}
                 <span>K</span>
               </button>
 

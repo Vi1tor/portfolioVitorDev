@@ -1,28 +1,34 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowDown, ArrowUpRight, Github, Mail } from 'lucide-react'
 import { personal } from '@/lib/data'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { fadeInUp, easeOut } from '@/lib/motion'
 
-const reveal = (delay = 0) => ({
-  initial: { opacity: 0, y: 16 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const, delay },
-})
+const reveal = fadeInUp
 
 const [firstName, ...restName] = personal.name.split(' ')
 const lastName = restName.join(' ')
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
+  const rectRef = useRef<DOMRect | null>(null)
   const reducedMotion = usePrefersReducedMotion()
+
+  useEffect(() => {
+    if (reducedMotion || !sectionRef.current) return
+    const updateRect = () => { rectRef.current = sectionRef.current?.getBoundingClientRect() ?? null }
+    updateRect()
+    window.addEventListener('resize', updateRect)
+    return () => window.removeEventListener('resize', updateRect)
+  }, [reducedMotion])
 
   const onMouseMove = (e: React.MouseEvent<HTMLElement>) => {
     if (reducedMotion || !sectionRef.current) return
-    const rect = sectionRef.current.getBoundingClientRect()
+    const rect = rectRef.current ?? sectionRef.current.getBoundingClientRect()
     sectionRef.current.style.setProperty('--mx', `${e.clientX - rect.left}px`)
     sectionRef.current.style.setProperty('--my', `${e.clientY - rect.top}px`)
   }
@@ -100,7 +106,7 @@ export default function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          transition={{ duration: 0.8, ease: easeOut, delay: 0.3 }}
           className="relative hidden lg:block"
         >
           <div className="relative aspect-[4/5] overflow-hidden rounded-[28px]" style={{ background: 'var(--paper-dim)' }}>
