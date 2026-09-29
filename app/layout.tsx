@@ -1,74 +1,38 @@
-import type { Metadata } from 'next'
-import { Inter, Fraunces, JetBrains_Mono } from 'next/font/google'
-import Script from 'next/script'
+import type { Metadata, Viewport } from 'next'
 import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
 import Header from '@/components/Header'
-import CommandPalette from '@/components/CommandPalette'
-
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
-})
-
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-fraunces',
-  display: 'swap',
-  axes: ['opsz', 'SOFT', 'WONK'],
-  style: ['normal', 'italic'],
-})
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains',
-  display: 'swap',
-})
-
-const BASE_URL = 'https://www.vitorprogramador.com.br'
+import { personal } from '@/lib/data'
+import { profileJsonLd, siteDescription, siteTitle, siteUrl } from '@/lib/seo'
+import './globals.css'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(siteUrl),
   title: {
-    default: 'Vitor Oliveira — Desenvolvedor Full Stack | Hotelaria & Turismo',
+    default: siteTitle,
     template: '%s | Vitor Oliveira',
   },
-  description:
-    'Desenvolvedor full stack freelance no Brasil, especializado em produtos digitais para hotelaria e turismo — guias para hóspedes, sistemas e sites institucionais. React, TypeScript, Node.js e Java.',
-  keywords: [
-    'Vitor Oliveira',
-    'Vitor Oliveira desenvolvedor',
-    'Desenvolvedor Full Stack',
-    'Desenvolvedor Full Stack Freelance',
-    'Desenvolvedor Freelance Brasil',
-    'Guia digital para hotelaria',
-    'Desenvolvedor para hotéis e pousadas',
-    'Sites para turismo',
-    'Guia do hóspede digital',
-    'React',
-    'TypeScript',
-    'Next.js',
-    'Node.js',
-    'Java',
-    'Portfólio',
-  ],
-  authors: [{ name: 'Vitor Oliveira', url: BASE_URL }],
-  creator: 'Vitor Oliveira',
-  alternates: { canonical: BASE_URL },
+  description: siteDescription,
+  authors: [{ name: personal.name, url: siteUrl }],
+  creator: personal.name,
+  category: 'technology',
+  alternates: { canonical: siteUrl },
+  icons: {
+    icon: { url: '/favicon.svg', type: 'image/svg+xml' },
+  },
   openGraph: {
     type: 'website',
     locale: 'pt_BR',
-    url: BASE_URL,
-    siteName: 'Vitor Oliveira — Desenvolvedor Full Stack',
-    title: 'Vitor Oliveira — Desenvolvedor Full Stack | Hotelaria & Turismo',
-    description:
-      'Produtos digitais para hotelaria e turismo, além de sistemas e sites institucionais. React, TypeScript, Node.js, Java.',
+    url: siteUrl,
+    siteName: `${personal.name} — ${personal.role}`,
+    title: siteTitle,
+    description: siteDescription,
+    images: [{ url: '/opengraph-image', width: 1200, height: 630, alt: siteTitle }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Vitor Oliveira — Desenvolvedor Full Stack | Hotelaria & Turismo',
-    description: 'Produtos digitais claros, estáveis e bem resolvidos.',
+    title: siteTitle,
+    description: siteDescription,
+    images: [{ url: '/opengraph-image', alt: siteTitle }],
   },
   robots: {
     index: true,
@@ -83,51 +47,26 @@ export const metadata: Metadata = {
   },
 }
 
-const websiteJsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'Vitor Oliveira — Desenvolvedor Full Stack',
-  url: BASE_URL,
-  inLanguage: 'pt-BR',
-}
-
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Person',
-  name: 'Vitor Oliveira',
-  url: BASE_URL,
-  sameAs: ['https://github.com/Vi1tor'],
-  jobTitle: 'Desenvolvedor Full Stack',
-  description:
-    'Desenvolvedor Full Stack freelance no Brasil, especializado em produtos digitais para hotelaria e turismo. React, TypeScript, Node.js, Java.',
-  image: 'https://avatars.githubusercontent.com/u/161656799?v=4',
-  email: 'vitor7pb@gmail.com',
-  knowsAbout: [
-    'React', 'TypeScript', 'Next.js', 'Node.js', 'Java', 'PostgreSQL', 'Tailwind CSS',
-    'Guias digitais para hotelaria', 'Turismo digital',
-  ],
-  worksFor: { '@type': 'Organization', name: 'Freelance' },
-  address: { '@type': 'PostalAddress', addressCountry: 'BR' },
+export const viewport: Viewport = {
+  themeColor: '#080b0d',
+  colorScheme: 'dark',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className="scroll-smooth">
-      <head>
-        <Script
-          id="json-ld-person"
+    <html lang="pt-BR">
+      <body className="antialiased">
+        <script
+          id="profile-json-ld"
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(profileJsonLd).replace(/</g, '\\u003c'),
+          }}
         />
-        <Script
-          id="json-ld-website"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-        />
-      </head>
-      <body className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable} antialiased`}>
+        <a className="skip-link" href="#conteudo">
+          Pular para o conteúdo
+        </a>
         <Header />
-        <CommandPalette />
         {children}
         <Analytics />
       </body>

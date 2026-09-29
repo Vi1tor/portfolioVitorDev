@@ -1,14 +1,10 @@
-import { MetadataRoute } from 'next'
-
-const BASE_URL = 'https://www.vitorprogramador.com.br'
+import type { MetadataRoute } from 'next'
+import { siteUrl } from '@/lib/seo'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: BASE_URL,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 1,
+      url: siteUrl,
     },
   ]
 }

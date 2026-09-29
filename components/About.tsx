@@ -1,91 +1,53 @@
-'use client'
-
-import { useRef, useEffect, useState } from 'react'
-import { motion, useInView, useMotionValue, animate } from 'framer-motion'
+import { ArrowUpRight, Code2, Layers3, Megaphone } from 'lucide-react'
 import { personal } from '@/lib/data'
-import { reveal as revealBase } from '@/lib/motion'
+import Experience from '@/components/Experience'
 
-const reveal = (delay = 0) => revealBase(delay, { y: 22, duration: 0.65, margin: '-80px' })
-
-const values = [
-  { n: '01', title: 'Clareza acima de decoração', text: 'Cada elemento na tela precisa justificar seu lugar. O resto é ruído.' },
-  { n: '02', title: 'Velocidade sem atalho', text: 'Entregar rápido é bom. Entregar rápido e estável é o que importa.' },
-  { n: '03', title: 'Interface que funciona no uso real', text: 'Testado com gente de verdade usando, não só bonito em protótipo.' },
+const services = [
+  { number: '01', icon: Code2, title: 'Sites & interfaces', text: 'Sites institucionais e aplicações web com React, Next.js e TypeScript.' },
+  { number: '02', icon: Layers3, title: 'Sistemas & integrações', text: 'Soluções sob medida, APIs e backend com Node.js e Java.' },
+  { number: '03', icon: Megaphone, title: 'Tráfego pago', text: 'Gestão de campanhas no Meta Ads e Google Ads para conectar negócio e público.' },
 ]
-
-function AnimatedStat({ value, label }: { value: string; label: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-40px' })
-  const motionVal = useMotionValue(0)
-  const [display, setDisplay] = useState('0')
-
-  const numericMatch = value.match(/(\d+)/)
-  const numeric = numericMatch ? parseInt(numericMatch[1]) : 0
-  const suffix = value.replace(/\d+/, '')
-
-  useEffect(() => {
-    if (!inView || numeric === 0) return
-    const ctrl = animate(motionVal, numeric, {
-      duration: 1.4,
-      ease: [0.16, 1, 0.3, 1],
-      onUpdate: v => setDisplay(`${Math.round(v)}${suffix}`),
-    })
-    return ctrl.stop
-  }, [inView, numeric, suffix, motionVal])
-
-  return (
-    <div ref={ref}>
-      <p className="font-display text-3xl font-medium" style={{ color: 'var(--ink)' }}>
-        {inView ? display : `0${suffix}`}
-      </p>
-      <p className="mt-1 text-[11px] uppercase tracking-[0.18em] text-[color:var(--ink-faint)]">{label}</p>
-    </div>
-  )
-}
 
 export default function About() {
   return (
-    <section id="sobre" className="relative py-28 scroll-mt-24">
+    <section id="sobre" aria-labelledby="about-heading" className="section-spacing scroll-mt-24 border-t border-[color:var(--border)]">
       <div className="section-container">
-        <motion.h2 {...reveal(0)} className="kicker mb-8 block">Sobre</motion.h2>
+        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
+          <div>
+            <p className="kicker mb-4">// 02 — Sobre mim</p>
+            <h2 id="about-heading" className="section-heading">Desenvolvedor full stack.<br /><span className="text-[color:var(--ink-muted)]">Do início à entrega.</span></h2>
+            <div className="mt-7 max-w-xl space-y-4 text-sm leading-7 text-[color:var(--ink-muted)] sm:text-[15px]">
+              <p>{personal.bio}</p>
+              <p>{personal.bio2}</p>
+            </div>
+            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 font-mono text-[10px] uppercase tracking-wider text-[color:var(--ink-faint)]">
+              <span className="inline-flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" aria-hidden="true" />Brasil · Trabalho remoto</span>
+              <span>Fuso de São Paulo</span>
+            </div>
+          </div>
 
-        <div className="grid gap-x-12 gap-y-14 lg:grid-cols-[1.3fr_0.7fr]">
-          <motion.blockquote {...reveal(0.06)} className="font-display text-3xl font-medium leading-[1.28] tracking-[-0.01em] text-[color:var(--ink)] text-balance sm:text-4xl">
-            Código que organiza, produto que respira. <span className="italic" style={{ color: 'var(--accent)' }}>Reduzir ruído</span> e deixar a experiência mais clara é sempre o ponto de partida.
-          </motion.blockquote>
-
-          <motion.div {...reveal(0.12)} className="grid grid-cols-3 gap-6 content-start lg:pt-2">
-            {personal.stats.map((s, i) => (
-              <AnimatedStat key={i} value={s.value} label={s.label} />
-            ))}
-          </motion.div>
+          <div className="surface self-start p-6 sm:p-8">
+            <p className="mb-7 font-mono text-[10px] uppercase tracking-[0.15em] text-[color:var(--ink-faint)]">Como posso contribuir</p>
+            <ul className="space-y-6">
+              {services.map(service => (
+                <li key={service.number} className="flex gap-4 border-b border-[color:var(--border)] pb-6 last:border-b-0 last:pb-0">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[color:var(--border-hi)] bg-[color:var(--paper)] text-accent">
+                    <service.icon size={18} strokeWidth={1.5} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h3 className="text-sm font-semibold text-[color:var(--ink)]">{service.title}</h3>
+                    <p className="mt-2 text-[13px] leading-6 text-[color:var(--ink-muted)]">{service.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <a href="#contato" className="mt-7 inline-flex items-center gap-2 text-xs font-medium text-accent transition-colors hover:text-[color:var(--ink)]">
+              Vamos conversar sobre seu projeto <ArrowUpRight size={14} aria-hidden="true" />
+            </a>
+          </div>
         </div>
 
-        <div className="mt-14 grid gap-14 lg:grid-cols-[1.3fr_0.7fr]">
-          <motion.div {...reveal(0.1)} className="space-y-5 max-w-2xl text-[16px] leading-8 text-[color:var(--ink-muted)]">
-            <p>{personal.bio}</p>
-            <p>{personal.bio2}</p>
-            <p>{personal.bio3}</p>
-          </motion.div>
-
-          <motion.div {...reveal(0.16)}>
-            <p className="text-[11px] uppercase tracking-[0.18em] text-[color:var(--ink-faint)] mb-4">Localização</p>
-            <p className="text-[15px] text-[color:var(--ink)]">Brasil</p>
-            <p className="mt-1 text-[15px] text-[color:var(--ink-muted)]">Remoto, fuso America/São_Paulo</p>
-          </motion.div>
-        </div>
-
-        <div className="mt-20 divider" />
-
-        <div className="mt-14 grid gap-8 sm:grid-cols-3">
-          {values.map((v, i) => (
-            <motion.div key={v.n} {...reveal(0.05 * i)}>
-              <p className="font-display text-2xl italic" style={{ color: 'var(--accent)' }}>{v.n}</p>
-              <h3 className="mt-3 text-[16px] font-semibold text-[color:var(--ink)]">{v.title}</h3>
-              <p className="mt-2 text-[14px] leading-6 text-[color:var(--ink-muted)]">{v.text}</p>
-            </motion.div>
-          ))}
-        </div>
+        <Experience />
       </div>
     </section>
   )
