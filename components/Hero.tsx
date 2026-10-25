@@ -41,7 +41,7 @@ export default function Hero() {
             <motion.h1
               {...fadeInUp(0.08)}
               id="hero-title"
-              className="display mt-9 text-[clamp(3.1rem,8.4vw,7.4rem)] leading-[0.92]"
+              className="display mt-9 text-[clamp(2.65rem,6.6vw,5.9rem)] leading-[0.98]"
             >
               Do balcão
               <br />
@@ -116,7 +116,7 @@ export default function Hero() {
               className={`flex flex-row-reverse items-baseline justify-end gap-4 py-6 sm:flex-col-reverse sm:items-start sm:gap-2 sm:py-8 ${i > 0 ? 'border-t border-line sm:border-l sm:border-t-0 sm:pl-8' : ''}`}
             >
               <dt className="text-[14px] text-ink-muted">{stat.label}</dt>
-              <dd className="display m-0 text-5xl leading-none sm:text-6xl">{stat.value}</dd>
+              <dd className="display m-0 text-[2.75rem] leading-none sm:text-[3.4rem]">{stat.value}</dd>
             </motion.div>
           ))}
         </dl>
@@ -128,7 +128,7 @@ export default function Hero() {
             <li
               key={`${client}-${i}`}
               aria-hidden={i >= clients.length}
-              className="flex items-center whitespace-nowrap font-serif text-2xl italic text-ink-muted sm:text-[28px]"
+              className="flex items-center whitespace-nowrap font-serif text-xl italic text-ink-muted sm:text-2xl"
             >
               <span className="px-7">{client}</span>
               <span className="text-accent not-italic" aria-hidden="true">✳</span>

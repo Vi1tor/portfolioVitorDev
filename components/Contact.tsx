@@ -38,7 +38,7 @@ export default function Contact() {
       <div className="container-x relative z-10">
         <Reveal>
           <p className="eyebrow !text-forest-muted">Contato</p>
-          <h2 id="contato-title" className="display mt-6 text-balance text-[clamp(3rem,9vw,8.5rem)] leading-[0.9]">
+          <h2 id="contato-title" className="display mt-6 text-balance text-[clamp(2.5rem,7vw,6.6rem)] leading-[1]">
             Tem um projeto?
             <br />
             <em className="!text-accent-bright">Vamos conversar.</em>
@@ -93,7 +93,7 @@ export default function Contact() {
           <p>
             © {new Date().getFullYear()} {personal.name}. Feito com Next.js no Brasil.
           </p>
-          <p className="font-serif text-lg italic text-forest-ink">Do balcão ao deploy.</p>
+          <p className="font-serif text-base italic text-forest-ink">Do balcão ao deploy.</p>
           <a href="#inicio" className="link-arrow !text-forest-muted hover:!text-forest-ink">
             Voltar ao topo ↑
           </a>

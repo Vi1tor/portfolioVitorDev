@@ -78,7 +78,7 @@
       "file_type": "code",
       "norm_label": "rootlayout()",
       "source_file": "app/layout.tsx",
-      "source_location": "L67"
+      "source_location": "L79"
     },
     {
       "id": "app_robots_robots",
@@ -352,7 +352,7 @@
       "file_type": "code",
       "norm_label": "metadata",
       "source_file": "app/layout.tsx",
-      "source_location": "L20"
+      "source_location": "L32"
     },
     {
       "id": "app_layout_mono",
@@ -363,7 +363,7 @@
       "file_type": "code",
       "norm_label": "mono",
       "source_file": "app/layout.tsx",
-      "source_location": "L11"
+      "source_location": "L25"
     },
     {
       "id": "app_layout_sans",
@@ -374,7 +374,7 @@
       "file_type": "code",
       "norm_label": "sans",
       "source_file": "app/layout.tsx",
-      "source_location": "L10"
+      "source_location": "L18"
     },
     {
       "id": "app_layout_serif",
@@ -385,7 +385,7 @@
       "file_type": "code",
       "norm_label": "serif",
       "source_file": "app/layout.tsx",
-      "source_location": "L12"
+      "source_location": "L11"
     },
     {
       "id": "app_layout_viewport",
@@ -396,7 +396,7 @@
       "file_type": "code",
       "norm_label": "viewport",
       "source_file": "app/layout.tsx",
-      "source_location": "L62"
+      "source_location": "L74"
     },
     {
       "id": "app_robots",
@@ -1523,6 +1523,7 @@
     {
       "id": "app_globals",
       "label": "app_globals",
+      "_origin": "semantic",
       "community": 0,
       "community_name": "layout.tsx",
       "external": true,
@@ -1534,6 +1535,7 @@
     {
       "id": "public_projects_encantus",
       "label": "public_projects_encantus",
+      "_origin": "semantic",
       "community": 5,
       "community_name": "data.ts",
       "external": true,
@@ -1545,6 +1547,7 @@
     {
       "id": "public_projects_guiadigital",
       "label": "public_projects_guiadigital",
+      "_origin": "semantic",
       "community": 5,
       "community_name": "data.ts",
       "external": true,
@@ -1556,6 +1559,7 @@
     {
       "id": "public_projects_m_charme",
       "label": "public_projects_m_charme",
+      "_origin": "semantic",
       "community": 5,
       "community_name": "data.ts",
       "external": true,
@@ -1567,6 +1571,7 @@
     {
       "id": "public_projects_m_descanso",
       "label": "public_projects_m_descanso",
+      "_origin": "semantic",
       "community": 5,
       "community_name": "data.ts",
       "external": true,
@@ -1578,6 +1583,7 @@
     {
       "id": "public_projects_m_granreserva",
       "label": "public_projects_m_granreserva",
+      "_origin": "semantic",
       "community": 5,
       "community_name": "data.ts",
       "external": true,
@@ -1589,6 +1595,7 @@
     {
       "id": "public_projects_m_mandeville",
       "label": "public_projects_m_mandeville",
+      "_origin": "semantic",
       "community": 5,
       "community_name": "data.ts",
       "external": true,
@@ -1600,6 +1607,7 @@
     {
       "id": "public_projects_siqueira",
       "label": "public_projects_siqueira",
+      "_origin": "semantic",
       "community": 5,
       "community_name": "data.ts",
       "external": true,
@@ -1619,7 +1627,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/layout.tsx",
-      "source_location": "L81",
+      "source_location": "L93",
       "weight": 1.0
     },
     {
@@ -1631,7 +1639,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "app/layout.tsx",
-      "source_location": "L82",
+      "source_location": "L94",
       "weight": 1.0
     },
     {
@@ -3130,18 +3138,7 @@
     },
     {
       "source": "app_layout",
-      "target": "app_layout_sans",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "app/layout.tsx",
-      "source_location": "L10",
-      "weight": 1.0
-    },
-    {
-      "source": "app_layout",
-      "target": "app_layout_mono",
+      "target": "app_layout_serif",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3152,13 +3149,24 @@
     },
     {
       "source": "app_layout",
-      "target": "app_layout_serif",
+      "target": "app_layout_sans",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/layout.tsx",
-      "source_location": "L12",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "app_layout",
+      "target": "app_layout_mono",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "app/layout.tsx",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -3169,7 +3177,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/layout.tsx",
-      "source_location": "L20",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -3180,7 +3188,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/layout.tsx",
-      "source_location": "L62",
+      "source_location": "L74",
       "weight": 1.0
     },
     {
@@ -3191,7 +3199,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "app/layout.tsx",
-      "source_location": "L67",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -4197,5 +4205,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "35970cbfd05c2d465657e4a8d2363ae804e98196"
+  "built_at_commit": "c06131c0a54807ab6d394c66878474c9bb6a4618"
 }

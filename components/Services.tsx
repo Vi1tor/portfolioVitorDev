@@ -7,7 +7,7 @@ export default function Services() {
       <div className="container-x">
         <Reveal className="max-w-3xl">
           <p className="eyebrow">Serviços</p>
-          <h2 id="servicos-title" className="display mt-5 text-[clamp(2.6rem,6vw,5rem)] leading-[0.98]">
+          <h2 id="servicos-title" className="display mt-5 text-[clamp(2.2rem,4.8vw,4rem)] leading-[1]">
             Como posso <em>ajudar</em>
           </h2>
         </Reveal>
@@ -21,7 +21,7 @@ export default function Services() {
               className="group flex min-h-[260px] flex-col bg-paper p-8 transition-colors duration-300 hover:bg-paper-raised lg:p-10"
             >
               <span className="font-mono text-[12px] text-accent">0{i + 1}</span>
-              <h3 className="display mt-auto pt-12 text-[2rem] leading-tight sm:text-[2.3rem]">{service.title}</h3>
+              <h3 className="display mt-auto pt-12 text-[1.6rem] leading-[1.15] sm:text-[1.85rem]">{service.title}</h3>
               <p className="mt-3 max-w-sm text-[15px] leading-7 text-ink-muted">{service.text}</p>
             </Reveal>
           ))}
@@ -30,7 +30,7 @@ export default function Services() {
         <div id="stack" className="mt-28 grid gap-10 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
             <p className="eyebrow">Ferramentas</p>
-            <h3 className="display mt-4 text-4xl sm:text-5xl">Stack do dia a dia</h3>
+            <h3 className="display mt-4 text-3xl sm:text-4xl">Stack do dia a dia</h3>
             <p className="mt-4 max-w-xs text-[15px] leading-7 text-ink-muted">
               Escolho a ferramenta pelo que o projeto pede, não pelo que está na moda.
             </p>

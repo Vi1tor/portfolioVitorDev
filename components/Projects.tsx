@@ -63,7 +63,7 @@ function CaseRow({ project, flip }: { project: CaseStudy; flip: boolean }) {
           <span>{project.kind}</span>
           <span className="ml-auto">{project.year}</span>
         </div>
-        <h3 className="display mt-5 text-[2.6rem] leading-none sm:text-5xl">{project.name}</h3>
+        <h3 className="display mt-5 text-[2.1rem] leading-[1.05] sm:text-[2.6rem]">{project.name}</h3>
         <p className="mt-5 text-pretty text-[16px] leading-[1.7] text-ink-muted">{project.summary}</p>
         <ul className="mt-6 space-y-2.5">
           {project.points.map(point => (
@@ -102,7 +102,7 @@ export default function Projects() {
         <Reveal className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <div>
             <p className="eyebrow">Projetos</p>
-            <h2 id="projetos-title" className="display mt-5 text-[clamp(2.8rem,6.5vw,5.5rem)] leading-[0.95]">
+            <h2 id="projetos-title" className="display mt-5 text-[clamp(2.4rem,5.2vw,4.4rem)] leading-[1]">
               Trabalho <em>selecionado</em>
             </h2>
           </div>
@@ -125,7 +125,7 @@ export default function Projects() {
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
             <Reveal>
               <p className="eyebrow">Série · Guias do hóspede</p>
-              <h3 className="display mt-5 text-[clamp(2.4rem,4.6vw,3.8rem)] leading-[0.98]">
+              <h3 className="display mt-5 text-[clamp(2rem,3.6vw,3rem)] leading-[1.05]">
                 Um guia digital para <em>cada</em> pousada.
               </h3>
               <p className="mt-6 max-w-md text-pretty text-[16px] leading-7 text-ink-muted">
@@ -169,7 +169,7 @@ export default function Projects() {
         <Reveal className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow">Laboratório</p>
-            <h3 className="display mt-4 text-4xl sm:text-5xl">Outros projetos</h3>
+            <h3 className="display mt-4 text-3xl sm:text-4xl">Outros projetos</h3>
           </div>
           <a href="https://github.com/Vi1tor?tab=repositories" target="_blank" rel="noopener noreferrer" className="link-arrow text-[15px]">
             Todos no GitHub <ArrowUpRight size={16} aria-hidden="true" />
@@ -186,7 +186,7 @@ export default function Projects() {
                 className="group grid gap-2 py-6 transition-colors sm:grid-cols-[64px_1fr_auto] sm:items-baseline sm:gap-6 lg:grid-cols-[64px_220px_1fr_auto_24px]"
               >
                 <span className="font-mono text-[12px] text-ink-muted">{project.year}</span>
-                <span className="font-serif text-2xl leading-tight transition-colors group-hover:text-accent">
+                <span className="font-serif text-xl leading-tight transition-colors group-hover:text-accent">
                   {project.name}
                 </span>
                 <span className="text-[15px] leading-6 text-ink-muted sm:col-start-2 lg:col-start-auto">

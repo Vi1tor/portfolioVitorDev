@@ -9,7 +9,7 @@ type OgFont = { name: string; data: ArrayBuffer; style: 'normal' | 'italic' }
 /** Baixa a Instrument Serif (normal e itálico) só com os caracteres usados na imagem. */
 async function loadSerif(text: string): Promise<OgFont[]> {
   const css = await fetch(
-    `https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&text=${encodeURIComponent(text)}`
+    `https://fonts.googleapis.com/css2?family=Besley:ital@0;1&text=${encodeURIComponent(text)}`
   ).then(res => res.text())
   const faces = [...css.matchAll(/@font-face\s*{([^}]+)}/g)].map(m => m[1])
   return Promise.all(
@@ -72,7 +72,7 @@ export default async function Image() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', fontFamily: 'Serif', fontSize: 112, lineHeight: 0.95, letterSpacing: '-0.02em' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', fontFamily: 'Serif', fontSize: 92, lineHeight: 1.02, letterSpacing: '-0.03em' }}>
           <span>Do balcão da pousada</span>
           <span style={{ display: 'flex' }}>
             ao&nbsp;<span style={{ fontStyle: 'italic', color: '#c2410c' }}>deploy</span>.

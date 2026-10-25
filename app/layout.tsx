@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
+import { Besley, IBM_Plex_Mono, Schibsted_Grotesk } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Header from '@/components/Header'
 import MotionProvider from '@/components/MotionProvider'
@@ -7,13 +7,25 @@ import { personal } from '@/lib/data'
 import { profileJsonLd, siteDescription, siteTitle, siteUrl } from '@/lib/seo'
 import './globals.css'
 
-const sans = Geist({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
-const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' })
-const serif = Instrument_Serif({
+// Títulos: serifa estilo Clarendon, de placa antiga de hotel.
+const serif = Besley({
   subsets: ['latin', 'latin-ext'],
-  weight: '400',
   style: ['normal', 'italic'],
   variable: '--font-serif',
+  display: 'swap',
+})
+// Texto: grotesca de jornal.
+const sans = Schibsted_Grotesk({
+  subsets: ['latin', 'latin-ext'],
+  style: ['normal', 'italic'],
+  variable: '--font-sans',
+  display: 'swap',
+})
+// Detalhes técnicos (URL, anos, numeração).
+const mono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-mono',
   display: 'swap',
 })
 

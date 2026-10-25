@@ -56,7 +56,7 @@ export default function Header() {
         >
           <span
             aria-hidden="true"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-ink font-serif text-[19px] italic text-paper transition-transform duration-300 group-hover:-rotate-12"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-ink font-serif text-[18px] italic text-paper transition-transform duration-300 group-hover:-rotate-12"
           >
             v
           </span>
@@ -131,7 +131,7 @@ export default function Header() {
                 onClick={() => setOpen(false)}
                 className="flex items-baseline justify-between py-5"
               >
-                <span className="font-serif text-4xl">{link.label}</span>
+                <span className="font-serif text-3xl">{link.label}</span>
                 <span className="font-mono text-xs text-ink-faint">0{i + 1}</span>
               </a>
             </li>

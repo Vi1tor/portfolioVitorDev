@@ -32,7 +32,6 @@
     background: var(--paper);
     color: var(--ink);
     font-family: var(--font-sans), system-ui, sans-serif;
-    font-feature-settings: 'ss01', 'cv11';
     text-rendering: optimizeLegibility;
   }
   button, input, textarea { font: inherit; }
@@ -48,13 +47,13 @@
 
   /* Rótulo pequeno em mono, usado acima dos títulos */
   .eyebrow {
-    @apply inline-flex items-center gap-2.5 font-mono text-[11px] font-medium uppercase tracking-[0.14em];
+    @apply inline-flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[0.06em];
     color: var(--ink-muted);
   }
-  .eyebrow::before { content: ''; width: 18px; height: 1px; background: currentColor; }
+  .eyebrow::before { content: '✳'; color: var(--accent); font-size: 14px; }
 
-  .display { font-family: var(--font-serif), Georgia, serif; font-weight: 400; letter-spacing: -0.02em; }
-  .display em { font-style: italic; color: var(--accent); }
+  .display { font-family: var(--font-serif), Georgia, serif; font-weight: 400; letter-spacing: -0.03em; }
+  .display em { font-style: italic; font-weight: 400; color: var(--accent); }
 
   .btn {
     @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-6 text-[15px] font-medium transition-[background,color,transform,border-color] duration-200;

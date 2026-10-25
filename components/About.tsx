@@ -24,7 +24,7 @@ export default function About() {
                   className="object-cover"
                 />
               </div>
-              <span className="absolute -bottom-5 -right-4 rotate-[-6deg] rounded-full bg-accent px-4 py-2 font-serif text-xl italic text-paper shadow-lg sm:-right-6">
+              <span className="absolute -bottom-5 -right-4 rotate-[-6deg] rounded-full bg-accent px-4 py-2 font-serif text-lg italic text-paper shadow-lg sm:-right-6">
                 oi, eu sou o Vitor
               </span>
             </div>
@@ -42,7 +42,7 @@ export default function About() {
         <div className="lg:col-span-8 lg:pl-6">
           <Reveal>
             <p className="eyebrow">Sobre</p>
-            <h2 id="sobre-title" className="display mt-5 text-balance text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
+            <h2 id="sobre-title" className="display mt-5 text-balance text-[clamp(2rem,4vw,3.5rem)] leading-[1.08]">
               Entendo o problema porque <em>já estive do outro lado.</em>
             </h2>
           </Reveal>
