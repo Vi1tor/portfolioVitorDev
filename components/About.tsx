@@ -1,53 +1,84 @@
-import { ArrowUpRight, Code2, Layers3, Megaphone } from 'lucide-react'
-import { personal } from '@/lib/data'
-import Experience from '@/components/Experience'
+import Image from 'next/image'
+import Reveal from '@/components/Reveal'
+import { personal, timeline } from '@/lib/data'
 
-const services = [
-  { number: '01', icon: Code2, title: 'Sites & interfaces', text: 'Sites institucionais e aplicações web com React, Next.js e TypeScript.' },
-  { number: '02', icon: Layers3, title: 'Sistemas & integrações', text: 'Soluções sob medida, APIs e backend com Node.js e Java.' },
-  { number: '03', icon: Megaphone, title: 'Tráfego pago', text: 'Gestão de campanhas no Meta Ads e Google Ads para conectar negócio e público.' },
+const facts = [
+  { label: 'Formação', value: 'Análise e Desenvolvimento de Sistemas' },
+  { label: 'Base', value: personal.location },
+  { label: 'Foco', value: 'Hotelaria, turismo e serviços' },
 ]
 
 export default function About() {
   return (
-    <section id="sobre" aria-labelledby="about-heading" className="section-spacing scroll-mt-24 border-t border-[color:var(--border)]">
-      <div className="section-container">
-        <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-20">
-          <div>
-            <p className="kicker mb-4">// 02 — Sobre mim</p>
-            <h2 id="about-heading" className="section-heading">Desenvolvedor full stack.<br /><span className="text-[color:var(--ink-muted)]">Do início à entrega.</span></h2>
-            <div className="mt-7 max-w-xl space-y-4 text-sm leading-7 text-[color:var(--ink-muted)] sm:text-[15px]">
-              <p>{personal.bio}</p>
-              <p>{personal.bio2}</p>
+    <section id="sobre" aria-labelledby="sobre-title" className="border-t border-line bg-paper-raised py-24 lg:py-36">
+      <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-14">
+        <Reveal className="lg:col-span-4">
+          <div className="lg:sticky lg:top-28">
+            <div className="relative w-full max-w-[340px]">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] bg-paper-sunk">
+                <Image
+                  src={personal.avatar}
+                  alt={`Foto de ${personal.name}`}
+                  fill
+                  sizes="340px"
+                  className="object-cover"
+                />
+              </div>
+              <span className="absolute -bottom-5 -right-4 rotate-[-6deg] rounded-full bg-accent px-4 py-2 font-serif text-xl italic text-paper shadow-lg sm:-right-6">
+                oi, eu sou o Vitor
+              </span>
             </div>
-            <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 font-mono text-[10px] uppercase tracking-wider text-[color:var(--ink-faint)]">
-              <span className="inline-flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" aria-hidden="true" />Brasil · Trabalho remoto</span>
-              <span>Fuso de São Paulo</span>
-            </div>
-          </div>
-
-          <div className="surface self-start p-6 sm:p-8">
-            <p className="mb-7 font-mono text-[10px] uppercase tracking-[0.15em] text-[color:var(--ink-faint)]">Como posso contribuir</p>
-            <ul className="space-y-6">
-              {services.map(service => (
-                <li key={service.number} className="flex gap-4 border-b border-[color:var(--border)] pb-6 last:border-b-0 last:pb-0">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[color:var(--border-hi)] bg-[color:var(--paper)] text-accent">
-                    <service.icon size={18} strokeWidth={1.5} aria-hidden="true" />
-                  </span>
-                  <div>
-                    <h3 className="text-sm font-semibold text-[color:var(--ink)]">{service.title}</h3>
-                    <p className="mt-2 text-[13px] leading-6 text-[color:var(--ink-muted)]">{service.text}</p>
-                  </div>
-                </li>
+            <dl className="mt-12 max-w-[340px] divide-y divide-line border-y border-line">
+              {facts.map(fact => (
+                <div key={fact.label} className="flex justify-between gap-6 py-3.5 text-[14px]">
+                  <dt className="text-ink-muted">{fact.label}</dt>
+                  <dd className="text-right font-medium">{fact.value}</dd>
+                </div>
               ))}
-            </ul>
-            <a href="#contato" className="mt-7 inline-flex items-center gap-2 text-xs font-medium text-accent transition-colors hover:text-[color:var(--ink)]">
-              Vamos conversar sobre seu projeto <ArrowUpRight size={14} aria-hidden="true" />
-            </a>
+            </dl>
           </div>
-        </div>
+        </Reveal>
 
-        <Experience />
+        <div className="lg:col-span-8 lg:pl-6">
+          <Reveal>
+            <p className="eyebrow">Sobre</p>
+            <h2 id="sobre-title" className="display mt-5 text-balance text-[clamp(2.4rem,5vw,4.4rem)] leading-[1]">
+              Entendo o problema porque <em>já estive do outro lado.</em>
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.1} className="mt-10 max-w-2xl space-y-5 text-pretty text-[17px] leading-[1.75] text-ink-muted">
+            <p>
+              Passei pela recepção de uma pousada antes de escrever código. Respondia as mesmas perguntas
+              todo dia: senha do Wi-Fi, horário do café, onde jantar. Quando comecei a programar, foi
+              natural resolver isso primeiro.
+            </p>
+            <p>
+              Hoje trabalho com <span className="text-ink">React, Next.js e TypeScript</span> no front e{' '}
+              <span className="text-ink">Node.js e Java</span> no back. Gosto de entregar coisa que alguém
+              usa na segunda-feira de manhã: simples, rápida no celular e fácil de manter.
+            </p>
+          </Reveal>
+
+          <ol className="mt-16 border-t border-line">
+            {timeline.map((item, i) => (
+              <Reveal
+                as="li"
+                key={item.title}
+                delay={i * 0.06}
+                className="grid gap-2 border-b border-line py-7 sm:grid-cols-[140px_1fr] sm:gap-8"
+              >
+                <p className="font-mono text-[12px] uppercase tracking-wider text-ink-muted sm:pt-1.5">
+                  {item.period}
+                </p>
+                <div>
+                  <h3 className="text-xl font-medium tracking-tight">{item.title}</h3>
+                  <p className="mt-2 max-w-xl text-[15px] leading-7 text-ink-muted">{item.text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </ol>
+        </div>
       </div>
     </section>
   )

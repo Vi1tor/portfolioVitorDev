@@ -1,9 +1,9 @@
 import { personal } from '@/lib/data'
 
 export const siteUrl = personal.website
-export const siteTitle = 'Vitor Oliveira | Desenvolvedor Full Stack React e Next.js'
+export const siteTitle = 'Vitor Oliveira | Desenvolvedor Full Stack — sites e guias digitais para pousadas'
 export const siteDescription =
-  'Desenvolvedor full stack no Brasil. Crio sites e sistemas com React, Next.js, TypeScript e Node.js, com projetos para hotelaria, turismo e serviços.'
+  'Desenvolvedor full stack no Brasil. Crio guias digitais do hóspede, sites e sistemas com React, Next.js, TypeScript e Node.js para pousadas, turismo e serviços.'
 
 export const profileJsonLd = {
   '@context': 'https://schema.org',
@@ -17,7 +17,7 @@ export const profileJsonLd = {
       jobTitle: personal.role,
       description: siteDescription,
       email: personal.email,
-      sameAs: [personal.github],
+      sameAs: [personal.github, personal.linkedin],
       knowsAbout: [
         'React',
         'Next.js',
@@ -26,7 +26,8 @@ export const profileJsonLd = {
         'Java',
         'PostgreSQL',
         'Desenvolvimento web',
-        'Guias digitais para hotelaria e turismo',
+        'Guias digitais do hóspede',
+        'Sites para pousadas e turismo',
       ],
     },
     {

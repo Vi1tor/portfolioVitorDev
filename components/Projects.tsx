@@ -1,156 +1,212 @@
+import Image from 'next/image'
 import { ArrowUpRight, Github } from 'lucide-react'
-import { projects } from '@/lib/data'
+import PhoneFrame from '@/components/PhoneFrame'
+import Reveal from '@/components/Reveal'
+import { caseStudies, guides, labProjects, type CaseStudy } from '@/lib/data'
 
-type Project = (typeof projects)[number]
-
-const categories: Record<string, string> = {
-  GuiaDigital: 'Hotelaria · Aplicação web',
-  'Guia Gran Reserva': 'Hotelaria · Guia interativo',
-  'Villa Monte Verde': 'Hotelaria · Experiência do hóspede',
-  AuditSystem: 'Ferramenta · Auditoria web',
-  'Siqueira Passeios': 'Turismo · Site institucional',
-  'Sistema Hoteleiro': 'Hotelaria · Análise de mercado',
+function host(url: string) {
+  return url.replace(/^https?:\/\//, '').replace(/\/$/, '')
 }
 
-function ProjectCover({ variant }: { variant: 'guide' | 'audit' }) {
-  const guide = variant === 'guide'
-
+function BrowserFrame({ project, priority }: { project: CaseStudy; priority?: boolean }) {
   return (
-    <div
-      aria-hidden="true"
-      className="relative h-56 overflow-hidden border-b border-[color:var(--border)] sm:h-64"
-      style={{ background: guide ? '#13211b' : '#141d24' }}
-    >
-      <svg viewBox="0 0 640 300" fill="none" className="absolute inset-0 h-full w-full" preserveAspectRatio="xMidYMid slice">
-        <defs>
-          <pattern id={`${variant}-grid`} width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M40 0H0V40" stroke={guide ? '#31503c' : '#294050'} strokeWidth="0.7" />
-          </pattern>
-          <linearGradient id={`${variant}-fade`} x1="0" y1="0" x2="640" y2="300" gradientUnits="userSpaceOnUse">
-            <stop stopColor={guide ? '#13211b' : '#141d24'} />
-            <stop offset="1" stopColor={guide ? '#13211b' : '#141d24'} stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path fill={`url(#${variant}-grid)`} d="M0 0h640v300H0z" />
-        {guide ? (
-          <>
-            <path d="m292-20 91 77-42 67 100 60-37 142M478-20l-18 94 92 50-41 93 115 50M236 249l85-54 97 13 92-70 123 13" stroke="#35573e" strokeWidth="1.5" />
-            <path d="m368 232 67-39-27-61 75-61" stroke="#c3f85c" strokeWidth="2" strokeDasharray="5 7" />
-            <circle cx="368" cy="232" r="7" fill="#13211b" stroke="#c3f85c" strokeWidth="2" />
-            <circle cx="483" cy="71" r="23" fill="#c3f85c" fillOpacity="0.08" stroke="#c3f85c" strokeOpacity="0.3" />
-            <circle cx="483" cy="71" r="7" fill="#c3f85c" />
-            <circle cx="551" cy="224" r="5" fill="#4d6c4a" />
-            <path d="M419 102v-8m-4 4h8M557 57v-8m-4 4h8M312 173v-8m-4 4h8" stroke="#8fae87" />
-          </>
-        ) : (
-          <>
-            <circle cx="468" cy="148" r="107" stroke="#304754" />
-            <circle cx="468" cy="148" r="76" stroke="#466875" strokeDasharray="2 8" />
-            <circle cx="468" cy="148" r="44" fill="#1a3037" stroke="#6aadb0" />
-            <path d="m452 148 11 11 23-25" stroke="#c3f85c" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M468 25v29m0 188v29M345 148h29m188 0h29" stroke="#87b2ba" />
-            <path d="M264 74h98l29 29M280 236h74l37-37M548 73l27-27h65M550 219l26 27h64" stroke="#42626f" />
-            <circle cx="362" cy="74" r="3" fill="#c3f85c" />
-            <circle cx="354" cy="236" r="3" fill="#87b2ba" />
-          </>
-        )}
-        <path fill={`url(#${variant}-fade)`} d="M0 0h640v300H0z" />
-      </svg>
-      <div className="relative flex h-full flex-col justify-between p-7 sm:p-8">
-        <span className="w-fit rounded border border-white/15 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.15em] text-white/65">
-          {guide ? 'Explore. Descubra. Conecte.' : 'Analise. Entenda. Melhore.'}
+    <div className="overflow-hidden rounded-2xl border border-line bg-paper-raised shadow-[0_40px_80px_-40px_rgba(23,21,15,0.35)]">
+      <div className="flex items-center gap-3 border-b border-line px-4 py-3">
+        <span className="flex gap-1.5" aria-hidden="true">
+          <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
+          <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
+          <span className="h-2.5 w-2.5 rounded-full bg-line-strong" />
         </span>
-        <div>
-          <p className="font-display text-4xl font-bold tracking-[-0.055em] text-[#edf2f0] sm:text-5xl">
-            {guide ? 'Guia' : 'Audit'}<span className={guide ? 'text-[#c3f85c]' : 'text-[#93c5ce]'}>{guide ? 'Digital' : 'System'}</span>
-          </p>
-          <p className="mt-2 font-mono text-[10px] uppercase tracking-[0.19em] text-white/55">
-            {guide ? 'O destino começa aqui' : 'Um olhar além da interface'}
-          </p>
-        </div>
+        <span className="mx-auto truncate rounded-full bg-paper-sunk px-4 py-1 font-mono text-[11px] text-ink-muted">
+          {project.live ? host(project.live) : host(project.github)}
+        </span>
+        <span className="w-[42px]" aria-hidden="true" />
+      </div>
+      <div className="relative aspect-[1440/900] overflow-hidden">
+        <Image
+          src={project.image}
+          alt={project.imageAlt}
+          fill
+          placeholder="blur"
+          priority={priority}
+          sizes="(min-width: 1024px) 680px, 100vw"
+          className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+        />
       </div>
     </div>
   )
 }
 
-function ProjectLinks({ project }: { project: Project }) {
+function CaseRow({ project, flip }: { project: CaseStudy; flip: boolean }) {
   return (
-    <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-[color:var(--border)] pt-5 text-xs font-medium">
-      {project.live && (
-        <a
-          href={project.live}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Visitar ${project.name} (abre em nova aba)`}
-          className="inline-flex items-center gap-2 text-accent transition-colors hover:text-[color:var(--ink)]"
-        >
-          Ver projeto <ArrowUpRight size={15} aria-hidden="true" />
-        </a>
-      )}
-      <a
-        href={project.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Código de ${project.name} no GitHub (abre em nova aba)`}
-        className="inline-flex items-center gap-2 text-[color:var(--ink-muted)] transition-colors hover:text-[color:var(--ink)]"
-      >
-        <Github size={14} aria-hidden="true" /> Código
-      </a>
-    </div>
+    <article className="group grid items-center gap-8 lg:grid-cols-12 lg:gap-14">
+      <Reveal className={`lg:col-span-7 ${flip ? 'lg:order-2' : ''}`}>
+        {project.live ? (
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Abrir ${project.name} (nova aba)`}
+            className="block rounded-2xl"
+          >
+            <BrowserFrame project={project} />
+          </a>
+        ) : (
+          <BrowserFrame project={project} />
+        )}
+      </Reveal>
+
+      <Reveal delay={0.1} className="lg:col-span-5">
+        <div className="flex items-center gap-3 font-mono text-[12px] text-ink-muted">
+          <span className="text-accent">{project.index}</span>
+          <span className="h-px w-6 bg-line-strong" aria-hidden="true" />
+          <span>{project.kind}</span>
+          <span className="ml-auto">{project.year}</span>
+        </div>
+        <h3 className="display mt-5 text-[2.6rem] leading-none sm:text-5xl">{project.name}</h3>
+        <p className="mt-5 text-pretty text-[16px] leading-[1.7] text-ink-muted">{project.summary}</p>
+        <ul className="mt-6 space-y-2.5">
+          {project.points.map(point => (
+            <li key={point} className="flex gap-3 text-[15px] leading-6">
+              <span className="mt-[11px] h-px w-3 shrink-0 bg-accent" aria-hidden="true" />
+              {point}
+            </li>
+          ))}
+        </ul>
+        <ul className="mt-7 flex flex-wrap gap-2" aria-label={`Tecnologias de ${project.name}`}>
+          {project.tech.map(t => (
+            <li key={t} className="chip">{t}</li>
+          ))}
+        </ul>
+        <div className="mt-8 flex flex-wrap items-center gap-6 text-[15px]">
+          {project.live && (
+            <a href={project.live} target="_blank" rel="noopener noreferrer" className="link-arrow">
+              Ver ao vivo <ArrowUpRight size={16} aria-hidden="true" />
+              <span className="sr-only">(abre em nova aba)</span>
+            </a>
+          )}
+          <a href={project.github} target="_blank" rel="noopener noreferrer" className="link-arrow text-ink-muted">
+            <Github size={15} aria-hidden="true" /> Código
+            <span className="sr-only">de {project.name} no GitHub (abre em nova aba)</span>
+          </a>
+        </div>
+      </Reveal>
+    </article>
   )
 }
 
 export default function Projects() {
-  const featured = projects.filter(project => ['GuiaDigital', 'AuditSystem'].includes(project.name))
-  const remaining = projects.filter(project => !featured.includes(project))
-
   return (
-    <section id="projetos" aria-labelledby="projects-heading" className="section-spacing scroll-mt-24 border-t border-[color:var(--border)]">
-      <div className="section-container">
-        <div className="mb-10 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
+    <section id="projetos" aria-labelledby="projetos-title" className="py-24 lg:py-36">
+      <div className="container-x">
+        <Reveal className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <div>
-            <p className="kicker mb-4">// 01 — Projetos</p>
-            <h2 id="projects-heading" className="section-heading">Projetos digitais.<br /><span className="text-[color:var(--ink-muted)]">Código em ação.</span></h2>
+            <p className="eyebrow">Projetos</p>
+            <h2 id="projetos-title" className="display mt-5 text-[clamp(2.8rem,6.5vw,5.5rem)] leading-[0.95]">
+              Trabalho <em>selecionado</em>
+            </h2>
           </div>
-          <p className="max-w-sm text-sm leading-7 text-[color:var(--ink-muted)]">
-            Aplicações, sites e ferramentas que desenvolvi para hotelaria, turismo e serviços.
+          <p className="max-w-sm text-pretty text-[16px] leading-7 text-ink-muted">
+            Produtos no ar, usados por hóspedes e clientes de verdade. A maioria nasceu na Serra da
+            Mantiqueira, em Monte Verde (MG).
           </p>
-        </div>
+        </Reveal>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          {featured.map(project => (
-            <article key={project.name} className="surface flex flex-col overflow-hidden">
-              <ProjectCover variant={project.name === 'GuiaDigital' ? 'guide' : 'audit'} />
-              <div className="flex flex-1 flex-col p-6 sm:p-7">
-                <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-[color:var(--ink-faint)]">{categories[project.name]}</p>
-                <h3 className="mt-3 font-display text-2xl font-bold tracking-tight text-[color:var(--ink)]">{project.name}</h3>
-                <p className="mt-3 flex-1 text-sm leading-7 text-[color:var(--ink-muted)]">{project.description}</p>
-                <ul className="mt-5 flex flex-wrap gap-2" aria-label={`Tecnologias de ${project.name}`}>
-                  {project.tech.map(tech => <li key={tech} className="tag-pill">{tech}</li>)}
-                </ul>
-                <ProjectLinks project={project} />
-              </div>
-            </article>
+        <div className="mt-20 space-y-28 lg:space-y-40">
+          {caseStudies.map((project, i) => (
+            <CaseRow key={project.slug} project={project} flip={i % 2 === 1} />
           ))}
         </div>
+      </div>
 
-        <div className="mt-5 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
-          {remaining.map((project, index) => (
-            <article key={project.name} className="surface flex flex-col p-6">
-              <div className="mb-8 flex items-center justify-between text-[color:var(--ink-faint)]" aria-hidden="true">
-                <span className="font-mono text-xs">/{String(index + 3).padStart(2, '0')}</span>
-                <ArrowUpRight size={19} strokeWidth={1.4} />
-              </div>
-              <p className="font-mono text-[9px] uppercase leading-5 tracking-[0.08em] text-[color:var(--ink-faint)]">{categories[project.name]}</p>
-              <h3 className="mt-2 text-lg font-semibold tracking-tight text-[color:var(--ink)]">{project.name}</h3>
-              <p className="mt-3 flex-1 text-[13px] leading-6 text-[color:var(--ink-muted)]">{project.description}</p>
-              <ul className="mt-5 flex flex-wrap gap-1.5" aria-label={`Tecnologias de ${project.name}`}>
-                {project.tech.map(tech => <li key={tech} className="tag-pill">{tech}</li>)}
-              </ul>
-              <ProjectLinks project={project} />
-            </article>
-          ))}
+      {/* Guias do hóspede */}
+      <div className="container-x mt-28 lg:mt-40">
+        <div className="relative overflow-hidden rounded-[2rem] bg-paper-sunk px-6 py-14 sm:px-10 lg:px-14 lg:py-20">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+            <Reveal>
+              <p className="eyebrow">Série · Guias do hóspede</p>
+              <h3 className="display mt-5 text-[clamp(2.4rem,4.6vw,3.8rem)] leading-[0.98]">
+                Um guia digital para <em>cada</em> pousada.
+              </h3>
+              <p className="mt-6 max-w-md text-pretty text-[16px] leading-7 text-ink-muted">
+                Check-in, Wi-Fi, café da manhã, regras e passeios num link só. Cada guia segue a identidade
+                da hospedagem e funciona bem no celular, que é onde o hóspede está.
+              </p>
+            </Reveal>
+
+            <ul className="-mx-6 flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 sm:-mx-10 sm:px-10 lg:mx-0 lg:grid lg:grid-cols-4 lg:overflow-visible lg:px-0 lg:pb-0">
+              {guides.map((guide, i) => (
+                <Reveal as="li" key={guide.name} delay={i * 0.08} className="w-[46vw] max-w-[200px] shrink-0 snap-start lg:w-auto lg:max-w-none">
+                  <a
+                    href={guide.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block rounded-[2.1rem]"
+                  >
+                    {guide.image && (
+                      <div className={`transition-transform duration-500 group-hover:-translate-y-2 ${i % 2 ? 'lg:translate-y-8' : ''}`}>
+                        <PhoneFrame src={guide.image} alt="" sizes="(min-width: 1024px) 180px, 46vw" />
+                      </div>
+                    )}
+                    <p className={`mt-4 text-[15px] font-medium leading-tight ${i % 2 ? 'lg:mt-12' : ''}`}>
+                      {guide.name}
+                    </p>
+                    <p className="mt-1.5 flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-ink-muted">
+                      {guide.place}
+                      <ArrowUpRight size={13} className="transition-colors group-hover:text-accent" aria-hidden="true" />
+                    </p>
+                    <span className="sr-only">(abre em nova aba)</span>
+                  </a>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
         </div>
+      </div>
+
+      {/* Laboratório */}
+      <div className="container-x mt-28 lg:mt-36">
+        <Reveal className="flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="eyebrow">Laboratório</p>
+            <h3 className="display mt-4 text-4xl sm:text-5xl">Outros projetos</h3>
+          </div>
+          <a href="https://github.com/Vi1tor?tab=repositories" target="_blank" rel="noopener noreferrer" className="link-arrow text-[15px]">
+            Todos no GitHub <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
+        </Reveal>
+
+        <ul className="mt-10 border-t border-line">
+          {labProjects.map((project, i) => (
+            <Reveal as="li" key={project.name} delay={i * 0.04} className="border-b border-line">
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group grid gap-2 py-6 transition-colors sm:grid-cols-[64px_1fr_auto] sm:items-baseline sm:gap-6 lg:grid-cols-[64px_220px_1fr_auto_24px]"
+              >
+                <span className="font-mono text-[12px] text-ink-muted">{project.year}</span>
+                <span className="font-serif text-2xl leading-tight transition-colors group-hover:text-accent">
+                  {project.name}
+                </span>
+                <span className="text-[15px] leading-6 text-ink-muted sm:col-start-2 lg:col-start-auto">
+                  {project.description}
+                </span>
+                <span className="hidden gap-1.5 lg:flex">
+                  {project.tech.map(t => (
+                    <span key={t} className="chip">{t}</span>
+                  ))}
+                </span>
+                <ArrowUpRight
+                  size={18}
+                  className="hidden text-ink-faint transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent lg:block"
+                  aria-hidden="true"
+                />
+                <span className="sr-only">(código no GitHub, abre em nova aba)</span>
+              </a>
+            </Reveal>
+          ))}
+        </ul>
       </div>
     </section>
   )

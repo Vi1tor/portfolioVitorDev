@@ -1,9 +1,21 @@
 import type { Metadata, Viewport } from 'next'
+import { Geist, Geist_Mono, Instrument_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import Header from '@/components/Header'
+import MotionProvider from '@/components/MotionProvider'
 import { personal } from '@/lib/data'
 import { profileJsonLd, siteDescription, siteTitle, siteUrl } from '@/lib/seo'
 import './globals.css'
+
+const sans = Geist({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
+const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono', display: 'swap' })
+const serif = Instrument_Serif({
+  subsets: ['latin', 'latin-ext'],
+  weight: '400',
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -48,13 +60,13 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#080b0d',
-  colorScheme: 'dark',
+  themeColor: '#f2efe7',
+  colorScheme: 'light',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" className={`${sans.variable} ${mono.variable} ${serif.variable}`}>
       <body className="antialiased">
         <script
           id="profile-json-ld"
@@ -66,8 +78,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="skip-link" href="#conteudo">
           Pular para o conteúdo
         </a>
-        <Header />
-        {children}
+        <MotionProvider>
+          <Header />
+          {children}
+        </MotionProvider>
         <Analytics />
       </body>
     </html>

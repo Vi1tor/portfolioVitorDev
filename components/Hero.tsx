@@ -1,85 +1,140 @@
-import { ArrowDown, ArrowUpRight, Code2, Github } from 'lucide-react'
-import { personal } from '@/lib/data'
+'use client'
 
-function OrbitalGraphic() {
-  return (
-    <div className="hero-art" aria-hidden="true">
-      <svg viewBox="0 0 510 510" fill="none" className="absolute inset-0 h-full w-full">
-        <defs>
-          <radialGradient id="sphere-fill" cx="35%" cy="30%" r="80%">
-            <stop stopColor="#273421" stopOpacity=".7" />
-            <stop offset="1" stopColor="#080b0d" />
-          </radialGradient>
-          <linearGradient id="orbit-stroke" x1="80" y1="80" x2="450" y2="430" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#c3f85c" stopOpacity=".8" />
-            <stop offset=".5" stopColor="#c3f85c" stopOpacity=".15" />
-            <stop offset="1" stopColor="#c3f85c" stopOpacity=".5" />
-          </linearGradient>
-        </defs>
-        <path d="M255 20V490M20 255H490" stroke="#253034" strokeDasharray="3 7" />
-        <circle cx="255" cy="255" r="225" stroke="#253034" strokeDasharray="2 8" />
-        <circle cx="255" cy="255" r="185" stroke="#253034" />
-        <circle cx="255" cy="255" r="144" fill="url(#sphere-fill)" stroke="url(#orbit-stroke)" />
-        <g stroke="url(#orbit-stroke)" strokeWidth=".7">
-          {[34, 72, 111].map(radius => <ellipse key={radius} cx="255" cy="255" rx={radius} ry="144" transform="rotate(-25 255 255)" />)}
-          {[35, 75, 115].map(radius => <ellipse key={radius} cx="255" cy="255" rx="144" ry={radius} transform="rotate(-25 255 255)" />)}
-        </g>
-        <ellipse cx="255" cy="255" rx="232" ry="87" transform="rotate(-32 255 255)" stroke="#c3f85c" strokeOpacity=".55" />
-        <ellipse cx="255" cy="255" rx="208" ry="105" transform="rotate(48 255 255)" stroke="#547337" strokeOpacity=".5" />
-        <circle cx="75" cy="370" r="5" fill="#c3f85c" />
-        <circle cx="441" cy="144" r="4" fill="#c3f85c" />
-        <circle cx="327" cy="460" r="3" fill="#a2ada9" />
-        <path d="M30 57V30H57M453 30H480V57M480 453V480H453M57 480H30V453" stroke="#52614b" />
-      </svg>
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="flex h-[104px] w-[142px] flex-col items-center justify-center rounded-xl border border-[#658240] bg-[#101910f2] shadow-[0_0_60px_#c3f85c12] sm:h-[120px] sm:w-[164px]">
-          <span className="font-mono text-[34px] font-medium tracking-[-0.1em] text-accent sm:text-[42px]">&lt;VO /&gt;</span>
-          <span className="mt-1 font-mono text-[8px] uppercase tracking-[0.25em] text-[var(--ink-muted)]">Ideia → código → produto</span>
-        </div>
-      </div>
-      <div className="orbit-tag left-[8%] top-[15%]"><Code2 size={15} className="text-accent" /> React / Next.js</div>
-      <div className="orbit-tag right-[0%] top-[53%]"><span className="font-semibold text-accent">TS</span> TypeScript</div>
-      <div className="orbit-tag bottom-[10%] left-[15%]"><span className="orbit-dot" /> Node.js / Java</div>
-      <span className="absolute right-[8%] top-[7%] font-mono text-[9px] tracking-widest text-[var(--ink-faint)]">FULL STACK / BR</span>
-    </div>
-  )
-}
+import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
+import PhoneFrame from '@/components/PhoneFrame'
+import { clients, guides, personal, stats } from '@/lib/data'
+import { easeOut, fadeInUp } from '@/lib/motion'
+
+const fan = [
+  { guide: guides[1], className: 'left-0 top-[9%] -rotate-[9deg] z-10', delay: 0.35 },
+  { guide: guides[0], className: 'left-1/2 top-0 -translate-x-1/2 z-20', delay: 0.2 },
+  { guide: guides[3], className: 'right-0 top-[9%] rotate-[9deg] z-10', delay: 0.5 },
+]
 
 export default function Hero() {
   return (
-    <section id="home" aria-labelledby="hero-title" className="hero-section">
-      <div className="section-container relative">
-        <div className="grid items-center gap-6 pb-12 pt-14 sm:pt-20 lg:min-h-[650px] lg:grid-cols-[1.15fr_1fr] lg:gap-8 lg:pb-16 lg:pt-16">
-          <div className="relative z-10">
-            <p className="kicker mb-7"><span className="h-px w-6 bg-[var(--accent)]" /> Olá, eu sou {personal.name}</p>
-            <h1 id="hero-title" className="font-display font-semibold leading-[1.04] tracking-[-0.06em]">
-              <span className="block text-[clamp(2rem,5vw,4.35rem)]">Desenvolvedor</span>
-              <span className="block text-[clamp(3.7rem,7.8vw,6.9rem)]">full stack<span className="text-accent">.</span></span>
-            </h1>
-            <p className="mt-7 text-[19px] font-medium leading-relaxed tracking-[-0.025em] sm:text-[21px]">Tecnologia com propósito.<br /><span className="text-accent">Design com visão de futuro.</span></p>
-            <p className="mt-4 max-w-[420px] text-sm leading-7 text-[var(--ink-muted)]">Crio sites, sistemas e experiências digitais com React, Next.js e Node.js — do primeiro conceito ao deploy.</p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a href="#projetos" className="btn-primary">Explorar projetos <ArrowUpRight size={16} aria-hidden="true" /></a>
-              <a href="#contato" className="btn-secondary">Vamos conversar <ArrowUpRight size={16} aria-hidden="true" /></a>
-            </div>
-            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
-              <span className="hero-status">Disponível para novos projetos</span>
-              <a href={personal.github} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-10 items-center gap-2 text-[11px] text-[var(--ink-muted)] transition-colors hover:text-[var(--accent)]"><Github size={15} aria-hidden="true" /> GitHub <ArrowUpRight size={12} aria-hidden="true" /></a>
-            </div>
+    <section id="inicio" aria-labelledby="hero-title" className="relative overflow-hidden pt-[72px]">
+      <div className="container-x">
+        <div className="grid items-center gap-14 pb-16 pt-12 sm:pt-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-10 lg:pb-24 lg:pt-20">
+          <div>
+            <motion.div {...fadeInUp(0)} className="flex flex-wrap items-center gap-x-4 gap-y-3">
+              <Image
+                src={personal.avatar}
+                alt=""
+                width={44}
+                height={44}
+                priority
+                className="h-11 w-11 rounded-full border-2 border-paper-raised object-cover shadow-sm"
+              />
+              <div className="text-[14px] leading-tight">
+                <p className="font-medium">{personal.name}</p>
+                <p className="text-ink-muted">{personal.role}</p>
+              </div>
+              <span className="inline-flex items-center gap-2 rounded-full border border-line bg-paper-raised px-3 py-1.5 text-[13px] text-ink-muted">
+                <span className="status-dot" aria-hidden="true" />
+                Disponível para projetos
+              </span>
+            </motion.div>
+
+            <motion.h1
+              {...fadeInUp(0.08)}
+              id="hero-title"
+              className="display mt-9 text-[clamp(3.1rem,8.4vw,7.4rem)] leading-[0.92]"
+            >
+              Do balcão
+              <br />
+              da pousada
+              <br />
+              ao <em>deploy</em>.
+            </motion.h1>
+
+            <motion.p
+              {...fadeInUp(0.16)}
+              className="mt-8 max-w-[34rem] text-pretty text-[17px] leading-[1.65] text-ink-muted sm:text-lg"
+            >
+              Sou desenvolvedor full stack. Antes de programar, trabalhei no atendimento de uma pousada.
+              Hoje construo os <span className="text-ink">guias digitais, sites e sistemas</span> que eu
+              queria ter tido do outro lado do balcão.
+            </motion.p>
+
+            <motion.div {...fadeInUp(0.24)} className="mt-10 flex flex-wrap items-center gap-3">
+              <a href="#projetos" className="btn btn-dark">
+                Ver projetos <ArrowDownRight size={18} aria-hidden="true" />
+              </a>
+              <a href="#contato" className="btn btn-ghost">
+                Vamos conversar <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
+            </motion.div>
           </div>
-          <OrbitalGraphic />
-        </div>
-        <div className="relative flex flex-col gap-7 border-t border-[var(--border)] py-7 sm:flex-row sm:items-center sm:justify-between">
-          <dl className="grid grid-cols-3 gap-5 sm:gap-12 lg:gap-16">
-            {personal.stats.map(stat => (
-              <div key={stat.label} className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:gap-3">
-                <dt className="order-2 max-w-[100px] text-[10px] leading-4 text-[var(--ink-muted)]">{stat.label}</dt>
-                <dd className="order-1 font-display text-[27px] font-medium tracking-tight">{stat.value}</dd>
+
+          {/* Vitrine: três guias do hóspede reais */}
+          <div className="relative mx-auto aspect-[1/0.92] w-[88%] max-w-[460px] sm:w-full lg:max-w-none">
+            {fan.map(({ guide, className, delay }) => (
+              <div key={guide.name} className={`absolute w-[42%] hover:z-30 ${className}`}>
+                <motion.div
+                  initial={{ opacity: 0, y: 60 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1.1, ease: easeOut, delay }}
+                >
+                  <a
+                    href={guide.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Guia do hóspede ${guide.name} (abre em nova aba)`}
+                    className="block rounded-[2.1rem] transition-transform duration-500 hover:-translate-y-3"
+                  >
+                    {guide.image && (
+                      <PhoneFrame
+                        src={guide.image}
+                        alt=""
+                        sizes="(min-width: 1024px) 220px, 42vw"
+                        priority
+                      />
+                    )}
+                  </a>
+                </motion.div>
               </div>
             ))}
-          </dl>
-          <a href="#projetos" className="hidden min-h-10 items-center gap-3 font-mono text-[9px] uppercase tracking-[0.12em] text-[var(--ink-faint)] hover:text-[var(--accent)] md:inline-flex">Conheça meu trabalho <ArrowDown size={14} aria-hidden="true" /></a>
+            <div className="absolute -bottom-2 left-0 right-0 z-30 flex justify-center">
+              <motion.p
+                {...fadeInUp(0.8)}
+                className="whitespace-nowrap rounded-full border border-line bg-paper-raised px-4 py-2 font-mono text-[11px] uppercase tracking-[0.12em] text-ink-muted shadow-sm"
+              >
+                Guias reais · em produção
+              </motion.p>
+            </div>
+          </div>
         </div>
+
+        <dl className="grid grid-cols-1 border-t border-line sm:grid-cols-3">
+          {stats.map((stat, i) => (
+            <motion.div
+              key={stat.label}
+              {...fadeInUp(0.3 + i * 0.08)}
+              className={`flex flex-row-reverse items-baseline justify-end gap-4 py-6 sm:flex-col-reverse sm:items-start sm:gap-2 sm:py-8 ${i > 0 ? 'border-t border-line sm:border-l sm:border-t-0 sm:pl-8' : ''}`}
+            >
+              <dt className="text-[14px] text-ink-muted">{stat.label}</dt>
+              <dd className="display m-0 text-5xl leading-none sm:text-6xl">{stat.value}</dd>
+            </motion.div>
+          ))}
+        </dl>
+      </div>
+
+      <div className="marquee overflow-hidden border-y border-line bg-paper-raised py-5" aria-label="Clientes com projeto entregue">
+        <ul className="marquee-track flex w-max items-center">
+          {[...clients, ...clients].map((client, i) => (
+            <li
+              key={`${client}-${i}`}
+              aria-hidden={i >= clients.length}
+              className="flex items-center whitespace-nowrap font-serif text-2xl italic text-ink-muted sm:text-[28px]"
+            >
+              <span className="px-7">{client}</span>
+              <span className="text-accent not-italic" aria-hidden="true">✳</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )
